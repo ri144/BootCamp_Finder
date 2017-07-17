@@ -3,16 +3,16 @@ package com.example.demo.controllers;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import javax.mail.internet.InternetAddress;
+import com.example.demo.models.User;
+import com.example.demo.repositories.UserRepository;
 import com.google.common.collect.Lists;
+import it.ozimov.springboot.mail.model.Email;
+import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
+import it.ozimov.springboot.mail.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.example.demo.models.User;
-import com.example.demo.repositories.UserRepository;
-import it.ozimov.springboot.mail.model.Email;
-import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
-import it.ozimov.springboot.mail.service.EmailService;
 
 @Controller
 public class AymenController {
