@@ -6,4 +6,6 @@ import com.example.demo.models.UserCamp;
 
 public interface UserCampRepository extends CrudRepository<UserCamp, Long>{
 
+	UserCamp findByUser_Id(long id);
+
 }

@@ -24,8 +24,8 @@ public class UserCampController {
 	@RequestMapping("/myApp")
 	public String listUserStatus(Principal principal, Model model){
 		
-		User user = userRepository.findByUsername(principal.getName()) ;
-		UserCamp usercamp = userCampRepository.findOne(user.getId());
+		User user = userRepository.findByEmail(principal.getName()) ;
+		UserCamp usercamp = userCampRepository.findByUser_Id(user.getId());
 		
 		model.addAttribute("usercamp", usercamp);
 		
