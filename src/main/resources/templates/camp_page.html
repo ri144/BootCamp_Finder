@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>BootCamp Finder</title>
+    <th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+<th:block th:replace="base :: nav"></th:block>
+
+<div class="container">
+    <br /><br />
+    <h1 th:text="${camp.campName}"></h1>
+    <br/>
+    <h2 th:text="'Location: ' + ${city}"></h2>
+    <h3 th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}"/>
+    <h4 th:text="'Topics Covered: ' + ${camp.topic}"/>
+    <h5 th:text="'Details: ' + ${camp.description}"/>
+    <br/>
+    <a th:href="@{'/email/' + ${camp.campId}}">Send the Camp Admin an E-mail</a>
+    <br/>
+    <a th:href="@{'/submitApp/' + ${camp.campId}}">Submit an Application to This Camp</a>
+    <th:block sec:authorize="hasRole('ROLE_USER')">
+        <a th:href="@{'/testSetup/' + ${camp.campId}}">Write a Testimonial</a>
+    </th:block>
+
+</div>
+<th:block th:replace="base :: footlinks"></th:block>
+</body>
+</html>

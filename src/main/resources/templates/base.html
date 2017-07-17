@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="head">
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png"/>
@@ -48,6 +48,11 @@
 
         <div class="collapse navbar-collapse" id="navigation-index"  th:fragment="nav" >
             <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="/login" sec:authorize="isAnonymous()">Login</a></li>
+                <li><a href="/logout" sec:authorize="isAuthenticated()">Logout</a></li>
+                <li><a href="/camp/1" sec:authorize="isAuthenticated()">Camp</a></li>
+                <li><a href="/register" sec:authorize="isAnonymous()">Register</a></li>
                 <li>
                     <a href="components-documentation.html" target="_blank">
                         <i class="material-icons">dashboard</i> Components
