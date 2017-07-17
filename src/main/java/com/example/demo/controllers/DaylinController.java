@@ -13,7 +13,7 @@ public class DaylinController {
 
     @RequestMapping("/")
     public String index(){
-        return "index";
+        return "login";
     }
 
 
