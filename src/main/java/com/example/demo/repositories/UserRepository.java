@@ -6,13 +6,10 @@ import com.example.demo.models.User;
 
 public interface UserRepository extends CrudRepository<User,Long>{
 
-	User findByEmail(String name);
-
-	User findByUsername(String name);
+	User findByEmail(String email);
 	
 	Long countByEmail(String email);
-	
-	Long countByUsername(String username);
+
 	
 
 }

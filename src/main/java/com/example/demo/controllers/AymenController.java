@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+/*package com.example.demo.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -40,3 +40,4 @@ public class AymenController {
         return "gallery";
     }
 }
+*/
