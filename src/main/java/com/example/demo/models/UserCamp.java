@@ -14,9 +14,9 @@ public class UserCamp {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long usercampId;
 	
-	private long user_Id;
-	
-	private long camp_Id;
+	/*private long user_Id;
+	*/
+	/*private long camp_Id;*/
 	
 	@ManyToOne
 	@JoinColumn(name="userId")
@@ -36,7 +36,7 @@ public class UserCamp {
 		this.usercampId = usercampId;
 	}
 
-	public long getUser_Id() {
+	/*public long getUser_Id() {
 		return user_Id;
 	}
 
@@ -50,7 +50,7 @@ public class UserCamp {
 
 	public void setCamp_Id(long camp_Id) {
 		this.camp_Id = camp_Id;
-	}
+	}*/
 
 	public User getUser() {
 		return user;
