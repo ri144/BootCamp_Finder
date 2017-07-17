@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <th:block th:replace="base :: head"></th:block>
+
+    <title>Accept Bootcamp</title>
+
+</head>
+<body>
+
+<!--<div th:replace="base :: navbar"></div>-->
+<th:block th:each="camp: ${campList}">
+    <div>
+        <th:block th:text="${camp.campName}"></th:block>
+        <!--if enabled-->
+            <a th:href="@{'/campenable/' + ${camp.campId}}">
+                <button type="button" th:class = "${camp.enabled}? 'btn btn-info':'btn btn-default'"
+                        th:disabled="${camp.enabled}" th:text="enable"></button>
+            </a>
+        <!--if disabled-->
+            <a th:href="@{'/campenable/' + ${camp.campId}}">
+                <button type="button" th:class = "${camp.enabled}? 'btn btn-default':'btn btn-info'"
+                        th:disabled="${camp.enabled} == false" th:text="disable"></button>
+            </a>
+        <!--<div th:if ="${camp.enabled} == false">
+            <a th:href="@{'/campenable/' + ${camp.campId}}">
+            <button type="button" class = "btn btn-default"  th:text="enable"></button>
+            </a>
+            <button type="button" class = "btn btn-info" th:disabled="disabled"  th:text="disable"></button>
+        </div>-->
+
+    </div>
+</th:block>
+
+<div th:replace="base :: footlinks"></div>
+</body>
+</html>
