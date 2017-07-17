@@ -3,7 +3,7 @@ package com.example.demo.controllers;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import javax.mail.internet.InternetAddress;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +22,7 @@ public class AymenController {
 
     @Autowired
     public EmailService emailService;
+    
     public void sendEmailWithoutTemplating(String username, String email2) throws UnsupportedEncodingException {
         final Email email = DefaultEmail.builder()
                 .from(new InternetAddress("aymehai@gmail.com", "Admin"))
