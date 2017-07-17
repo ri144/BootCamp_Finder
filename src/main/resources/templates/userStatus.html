@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My application status</title>
+
+    <th:block th:replace="base :: head"></th:block>
+</head>
+	<body>
+		<th:block th:replace="base :: nav"></th:block>
+			
+		<table>
+			<tr>
+				<th>Camp name</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="ucamp : ${usercamp}">
+				
+					<td th:text="${ucamp.camp.campName}"></td>
+					<td th:text="${ucamp.camp.startDate}"></td>
+					<td th:text="${ucamp.camp.endDate}"></td>
+					<td th:text="${ucamp.status}"></td>
+			</tr>
+			
+		</table>	
+</body>
+</html>
