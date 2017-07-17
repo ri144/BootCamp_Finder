@@ -20,7 +20,7 @@ public class Testimonial {
 	private Camp camp;
 	
 	@ManyToOne
-	@JoinColumn(name="campId")
+	@JoinColumn(name="userId")
 	private User user;
 	
 	@Column(name = "comment")
