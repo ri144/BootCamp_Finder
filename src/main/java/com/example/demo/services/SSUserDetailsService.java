@@ -14,9 +14,6 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by student on 7/17/17.
- */
 @Transactional
 @Service
 public class SSUserDetailsService implements UserDetailsService {
@@ -32,7 +29,7 @@ public class SSUserDetailsService implements UserDetailsService {
         try {
             User user = userRepository.findByUsername(username);
             if (user == null) {
-                System.out.println("user not found with the provided email " + user.toString());
+                System.out.println("user not found with the provided username " + user.toString());
                 return null;
             }
 

@@ -2,9 +2,11 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Camp;
 import com.example.demo.models.City;
+import com.example.demo.models.Testimonial;
 import com.example.demo.models.User;
 import com.example.demo.repositories.CampRepository;
 import com.example.demo.repositories.CityRepository;
+import com.example.demo.repositories.TestimonialRepository;
 import com.example.demo.repositories.UserRepository;
 
 import java.security.Principal;
@@ -31,12 +33,15 @@ public class MasterController {
     @Autowired
     UserRepository userRepo;
 
+    @Autowired
+    TestimonialRepository testimonialRepository;
+
     @RequestMapping("/camp/{id}")
     public String setupCamp(Model model, @PathVariable("id") Long id){
         Camp c = campRepo.findByCampId(id);
-        City city =  c.getCity();
+        List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(c.getCampId());
         model.addAttribute("camp", c);
-        model.addAttribute("city", city.getCity());
+        model.addAttribute("testimonials", testimonials);
         return "camp_page";
     }
    

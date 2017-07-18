@@ -16,35 +16,36 @@
     <h1 th:text="${camp.campName}"></h1>
     <br/>
     <h2 th:text="'Location: ' + ${camp.city.city}"></h2>
-   <!--  <h3 th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}"/>
-  -->   <h4 th:text="'Topics Covered: ' + ${camp.topic}"/>
+    <h3 th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}"/>
+    <h4 th:text="'Topics Covered: ' + ${camp.topic}"/>
     <h5 th:text="'Details: ' + ${camp.description}"/>
+    <br/>
+    <div th:if="${testimonials!=null}">
+        <ul>
+            <th:block th:each="t : ${testimonials}">
+                <div>
+                    <p th:text="${t.user.fullName}"> </p>
+                    <p th:text="${t.comment}"></p>
+                    <p th:text="${#dates.format(t.date, 'MM-dd-yyyy')}"></p>
+                </div>
+            </th:block>
+        </ul>
+    </div>
     <br/>
     <a th:href="@{'/email/' + ${camp.campId}}">Send the Camp Admin an E-mail</a>
     <br/>
     <a th:href="@{'/submitApp/' + ${camp.campId}}">Submit an Application to This Camp</a>
-    <th:block sec:authorize="hasRole('ROLE_USER')">
-        <a th:href="@{'/testimonial/' + ${camp.campId}}">Write a Testimonial</a>
+    <th:block sec:authorize="hasAuthority('USER')">
+        <a th:href="@{'/test/' + ${camp.campId}}">Write a Testimonial</a>
     </th:block>
-	
-	<div th:if="${testimonial!=null}">
-		<form th:action="@{/testimonial/save}" th:method="post" th:object="${testimonial}">
+	<div th:if="${test!=null}">
+		<form th:action="@{/test/save}" th:method="post" th:object="${test}">
 			<textarea th:field="*{comment}"></textarea>
 			<input type="hidden" name="campId" th:value="${camp.campId}" />
 			<input type="submit" value="Submit"/>
 		</form>
 	</div>
-	<div>
-		<ul>
-			<th:block th:each="testimonial : ${testimonials}">
-				<div>
-					<p th:text="${testimonial.user.fullName}"> </p>
-					<p th:text="${testimonial.comment}"></p>
-					<p th:text="${#dates.format(testimonial.date, 'MM-dd-yyyy')}"></p>
-				</div>
-			</th:block>
-		</ul>
-	</div>
+
 	
 </div>
 <th:block th:replace="base :: footlinks"></th:block>
