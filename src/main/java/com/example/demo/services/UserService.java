@@ -58,6 +58,7 @@ public class UserService {
 
     public void saveAccount(User user, String role) {
         user.setRoles(Arrays.asList(roleRepository.findByRole(role)));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 }
