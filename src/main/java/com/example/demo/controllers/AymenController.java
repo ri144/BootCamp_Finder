@@ -3,7 +3,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
-
 import com.example.demo.models.Camp;
 import com.example.demo.models.User;
 import com.example.demo.repositories.CampRepository;
@@ -16,9 +15,9 @@ import it.ozimov.springboot.mail.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AymenController {
@@ -47,14 +46,21 @@ public class AymenController {
     }
     
     //This Mapping Receives the Camp
-    @RequestMapping("/email/{id}")
-    public String RequestMoreInfo(@PathVariable("id") Long id, Model model, Principal principal, HttpServletRequest getSubject, HttpServletRequest getBody) throws UnsupportedEncodingException{
+    @GetMapping("/email/{id}")
+    public String RequestMoreInfo(Model model, @PathVariable("id") Long id){ //path id is for camp
+    	model.addAttribute("id", id);
+    	return "moreInfo";
+    }
+    
+    @PostMapping("/moreInfo/{id}")
+    public String moreInfoPage(@PathVariable("id") Long id, Model model, Principal principal, HttpServletRequest getSubject, HttpServletRequest getBody) throws UnsupportedEncodingException{
     	
     	//Gets logged in Users information
     	User newUser = userRepository.findByUsername(principal.getName());
     	String currentUserEmail = newUser.getEmail();
     	String currentUserName = newUser.getFullName();
     	
+    	System.out.println(currentUserEmail);
     	//uses camp.camp_id and assigns it to Camp currentCamp
     	Camp currentCamp = campRepository.findByCampId(id);
     	
@@ -63,11 +69,10 @@ public class AymenController {
     	
     	//Gets HttpServletRequest and assigns it to String subject & body
     	String subject = getSubject.getParameter("subject");
-    	String body = getBody.getParameter("body");
-    	
+    	String body = getBody.getParameter("body") + "\n \n To respond to this user please email: " + currentUserEmail;
+    	System.out.println(body);
     	//Uses method sendEmailWithoutTemplating
     	sendEmailWithoutTemplating(currentUserName, currentUserEmail, campInfo.getFullName(), campInfo.getEmail(), body, subject);
-    	return "moreinfo";
+    	return "redirect:/";
     }
-    
 }

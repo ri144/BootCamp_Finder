@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="thymeleaf.org"
-	xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-<th:block th:replace="base :: head"></th:block>
+    <th:block th:replace="base :: head"></th:block>
 </head>
 <body>
 	<th:block th:replace="base :: nav"></th:block>
-
 	<div class="container">
 
-		<form th:action="@{/moreinfo}" method="post">
+		<form th:action="@{'/moreInfo/' + ${id}}" method="post">
 			<div class="form-group">
-				<label for="title">Post</label> <input type="text" name="subject" />
+				<label for="title">subject</label><input type="text" name="subject" />
+				<br />
+				<br />
+				<label for="title">Body</label>
+				<br/>
 				<textarea type="text" class="form-control" name="body" placeholder="What would you like to say =)"></textarea>
 			</div>
-			<input class="btn btn-default" value="Send" />
+			<input type="submit" class="btn btn-default" value="Send" />
 		</form>
-
 	</div>
 	<!-- /.container -->
 
