@@ -45,8 +45,9 @@
             </select>
         </div>
         <label for="role">Roles</label>
-        <select class="selectpicker" data-style="form-control" id="role" data-width="25%" title = "Choose Account Type">
+        <select class="selectpicker" data-style="form-control" id="role" data-width="25%" th:name = "role" title = "Choose Account Type">
             <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
         </select>
         <!--<span th:if="${#fields.hasErrors('authority')}" th:errors="*{authority}">Error</span>-->
         <br/>

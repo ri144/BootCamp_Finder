@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.*;
 import com.example.demo.repositories.*;
+import com.example.demo.services.*;
 import com.example.demo.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -41,6 +42,9 @@ public class KCController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private UserService userService;
 
 
 
@@ -89,7 +93,7 @@ public class KCController {
 
     @RequestMapping("/admincamps")//change later
     public String seeSubmittedCamps(Model model, Principal principal){
-        User user = userRepository.findByEmail(principal.getName());
+        User user = userService.findByEmail(principal.getName());
         Iterable<Camp> campList = campRepository.findAllByAdminId(user.getId());
         model.addAttribute("campList", campList);
         return "submittedcamps";
@@ -113,7 +117,7 @@ public class KCController {
     }
 
     @PostMapping("/registeruser")
-    public String saveAccount(@Valid User user, BindingResult result, Model model){
+    public String saveAccount(@RequestParam("cityId") long cityId, @RequestParam("role") String role,  @Valid User user, BindingResult result, Model model){
         model.addAttribute("user", user);
         userValidator.validate(user,result);
         if (result.hasErrors()){
@@ -123,7 +127,9 @@ public class KCController {
         }
 
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        user.setCity(cityRepository.findOne(cityId));
+
+        userService.saveAccount(user,role);
         return "redirect:/login";
     }
 

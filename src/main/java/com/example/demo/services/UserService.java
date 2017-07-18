@@ -55,4 +55,9 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }*/
+
+    public void saveAccount(User user, String role) {
+        user.setRoles(Arrays.asList(roleRepository.findByRole(role)));
+        userRepository.save(user);
+    }
 }
