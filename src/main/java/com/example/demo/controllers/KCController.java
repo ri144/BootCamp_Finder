@@ -49,6 +49,7 @@ public class KCController {
 
 
     @GetMapping("/a")//change later
+    //Show page that admins can register a camp
     public String registerCamp(Model model){
         model.addAttribute("camp", new Camp());
         Iterable<City> cityList = cityRepository.findAll();
@@ -58,6 +59,7 @@ public class KCController {
 
 
     @PostMapping("/createcamp")
+    //registercamp clicks submit button
     public String registerCampSave(@RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
                                    @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model){
         model.addAttribute("camp", camp);
@@ -77,6 +79,7 @@ public class KCController {
     }
 
     @RequestMapping("/b")//change later
+    //superadmin sees all camps and can enable and disable
     public String enableCamps(Model model){
         Iterable<Camp> campList = campRepository.findAll();
         model.addAttribute("campList", campList);
@@ -84,6 +87,7 @@ public class KCController {
     }
 
     @RequestMapping("/campenable/{id}")//change later
+    //Click on the camp to enable/disable it
     public String enableCampsClick(@PathVariable("id") long id, Model model){
        Camp camp = campRepository.findOne(id);
        camp.setEnabled(!camp.isEnabled());
@@ -92,6 +96,7 @@ public class KCController {
     }
 
     @RequestMapping("/admincamps")//change later
+    //See a list of all camps that the admin registered
     public String seeSubmittedCamps(Model model, Principal principal){
         User user = userService.findByEmail(principal.getName());
         Iterable<Camp> campList = campRepository.findAllByAdminId(user.getId());
@@ -100,7 +105,8 @@ public class KCController {
     }
 
     @RequestMapping("/editcamp/{id}")//change later
-    public String seeSubmittedCamps(@PathVariable("id") long id, Model model){
+    //edit this specific camp
+    public String editCamp(@PathVariable("id") long id, Model model){
         Camp camp = campRepository.findOne(id);
         model.addAttribute("camp", camp);
         Iterable<City> cityList = cityRepository.findAll();
@@ -109,6 +115,7 @@ public class KCController {
     }
 
     @GetMapping("/registeruser")
+    //Show registration page
     public String showRegistrationPage(Model model){
         model.addAttribute("user", new User());
         Iterable<City> cityList = cityRepository.findAll();
@@ -117,6 +124,7 @@ public class KCController {
     }
 
     @PostMapping("/registeruser")
+    //saves the account into the database
     public String saveAccount(@RequestParam("cityId") long cityId, @RequestParam("role") String role,  @Valid User user, BindingResult result, Model model){
         model.addAttribute("user", user);
         userValidator.validate(user,result);
@@ -126,7 +134,6 @@ public class KCController {
             return "registeruser";
         }
 
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCity(cityRepository.findOne(cityId));
 
         userService.saveAccount(user,role);
@@ -135,7 +142,7 @@ public class KCController {
 
 
     public Date stringToDate(String dateString){
-        //Converts a string to SQL date
+        //Converts a string to java date
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
         try {
