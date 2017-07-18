@@ -46,7 +46,7 @@ public class UserCampController {
 	public String allAdminCamps(Principal principal, Model model){
 		
 		User user = userRepo.findByEmail(principal.getName());
-		List<Camp> campList = (List<Camp>) campRepo.findAllByAdminId(user.getId());
+		List<Camp> campList = (List<Camp>) campRepo.findAllByAdminIdAndEnabled(user.getId(), true);
 		
 		model.addAttribute("allCamps", campList);
 		return "allCamps";

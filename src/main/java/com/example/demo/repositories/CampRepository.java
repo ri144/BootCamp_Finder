@@ -8,8 +8,8 @@ import com.example.demo.models.Camp;
 
 public interface CampRepository extends CrudRepository<Camp, Long> {
     Camp findByCampId(Long campid);
-    Iterable<Camp> findAllByAdminId(Long adminId);
-
+    Iterable<Camp> findAllByAdminIdAndEnabled(Long adminId, boolean enabled);
+    Iterable<Camp> findAllByEnabled(boolean enabled);
 	List<Camp> findByCity_Id(Long id);
 	Camp findByCampIdAndAdminId(Long campId, long id);
 }
