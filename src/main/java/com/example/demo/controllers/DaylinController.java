@@ -25,7 +25,7 @@ public class DaylinController {
     @Autowired
     TestimonialRepository testimonialRepository;
 
-    @RequestMapping("/")
+    @RequestMapping("/ccamp")
     public String index(Model model){
         Camp c = campRepo.findByCampId(2l);
         City city =  c.getCity();
@@ -34,6 +34,12 @@ public class DaylinController {
         model.addAttribute("testimonials", testimonials);
         model.addAttribute("city", city.getCity());
         return "camp_page";
+    }
+
+
+    @RequestMapping("/")
+    public String home(Model model){
+        return "index";
     }
 
     @RequestMapping("/login")
