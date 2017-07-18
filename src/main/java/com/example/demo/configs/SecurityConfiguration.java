@@ -3,6 +3,8 @@ package com.example.demo.configs;
 /**
  * Created by daylinhenry on 7/17/17.
  */
+import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.SSUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+
+    @Autowired
+    private SSUserDetailsService userDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public UserDetailsService userDetailsServiceBean() throws Exception {
+        return new SSUserDetailsService(userRepository);
+    }
+
 
     @Bean
     public PasswordEncoder encoder() {

@@ -27,6 +27,9 @@ public class User {
 	
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
+
+	@Column(name = "username", nullable = false, unique = true)
+	private String username;
 	
 	@Column(name = "password")
 	private String password;
@@ -80,6 +83,15 @@ public class User {
 
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public City getCity() {
