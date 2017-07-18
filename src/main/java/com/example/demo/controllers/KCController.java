@@ -99,20 +99,15 @@ public class KCController {
        return "redirect:/enable";
     }
 
-    /*@RequestMapping("/admincamps")//change later
-    //See a list of all camps that the admin registered
-    public String seeSubmittedCamps(Model model, Principal principal){
-        User user = userService.findbyUsername(principal.getName());
-        Iterable<Camp> campList = campRepository.findAllByAdminId(user.getId());
-        model.addAttribute("campList", campList);
-        return "submittedcamps";
-    }*/
-
 
     @GetMapping("/editcamp/{id}")//change later
     //edit this specific camp
-    public String editCampSubmit(@PathVariable("id") long id, Model model){
+    public String editCampSubmit(@PathVariable("id") long id, Model model, Principal principal){
         Camp camp = campRepository.findOne(id);
+        User user = userService.findbyUsername(principal.getName());
+        if(user.getId() != camp.getAdminId()){
+            return "redirect:/";
+        }
         model.addAttribute("camp", camp);
         Iterable<City> cityList = cityRepository.findAll();
         model.addAttribute("cityList", cityList);
