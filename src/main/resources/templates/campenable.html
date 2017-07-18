@@ -9,15 +9,16 @@
 </head>
 <body>
 <div>
+    <th:block th:replace="base :: nav"></th:block>
     <br/>
     <br/>
     <br/>
     <!--<div th:replace="base :: navbar"></div>-->
     <th:block th:each="camp: ${campList}">
 
-        <div class = "col-md-3 col-md-offset-2">
+        <div class = "col-md-3 col-md-offset-3">
             <a th:href ="@{'/camp/' + ${camp.campId}}">
-            <button type="button" class="btn btn-simple" data-toggle="tooltip" data-placement="right"
+            <button type="button" class="btn btn-simple" data-toggle="tooltip" data-placement="left"
                     th:title="'Description: '+${camp.description}"
                     th:text="${camp.campName}">
             </button>
