@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+<th:block th:replace="base :: nav"></th:block>
 <div class= "col-md-4 col-md-offset-1">
     <form autocomplete = "off" th:action="@{/registeruser}" th:object="${user}" method="post">
         <div class="form-group">

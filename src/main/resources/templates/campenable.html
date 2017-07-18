@@ -7,41 +7,38 @@
     <title>Accept Bootcamp</title>
 
 </head>
-<body>
-<div>
-    <th:block th:replace="base :: nav"></th:block>
-    <br/>
-    <br/>
-    <br/>
-    <!--<div th:replace="base :: navbar"></div>-->
-    <th:block th:each="camp: ${campList}">
-
-        <div class = "col-md-3 col-md-offset-3">
-            <a th:href ="@{'/camp/' + ${camp.campId}}">
-            <button type="button" class="btn btn-simple" data-toggle="tooltip" data-placement="left"
-                    th:title="'Description: '+${camp.description}"
-                    th:text="${camp.campName}">
-            </button>
-            </a>
-        </div>
-        <div class = "col-md-4">
-            <!--if enabled-->
-            <a th:href="@{'/campenable/' + ${camp.campId}}">
-                <button type="button" th:class = "${camp.enabled}? 'btn btn-info':'btn btn-default'"
-                        th:disabled="${camp.enabled}" th:text="enable"></button>
-            </a>
-            <!--if disabled-->
-            <a th:href="@{'/campenable/' + ${camp.campId}}">
-                <button type="button" th:class = "${camp.enabled}? 'btn btn-default':'btn btn-info'"
-                        th:disabled="${camp.enabled} == false" th:text="disable"></button>
-            </a>
-                            <!--<div class="panel-body">
-                                <p th:text="'Description: '+${camp.description}"></p>
-                                <p th:text="'Start Date: '+ ${#dates.format(camp.startDate, 'MM-dd-yyyy')}"></p>
-                                <p th:text="'End Date: '+ ${#dates.format(camp.endDate, 'MM-dd-yyyy')}"></p>
-                            </div>-->
-        </div>
-    </th:block>
+<body class="profile-page">
+<th:block th:replace="base :: nav"></th:block>
+<div class="wrapper">
+    <div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+    <div class="main main-raised">
+        <br/>
+        <br/>
+        <th:block th:each="camp: ${campList}">
+            <div class="row">
+                <div class = "col-md-3 col-md-offset-3">
+                    <a th:href ="@{'/camp/' + ${camp.campId}}">
+                        <button type="button" class="btn btn-simple" data-toggle="tooltip" data-placement="left"
+                                th:title="'Description: '+${camp.description}"
+                                th:text="${camp.campName}">
+                        </button>
+                    </a>
+                </div>
+                <div class = "col-md-4">
+                    <!--if enabled-->
+                    <a th:href="@{'/campenable/' + ${camp.campId}}">
+                        <button type="button" th:class = "${camp.enabled}? 'btn btn-info':'btn btn-default'"
+                                th:disabled="${camp.enabled}" th:text="enable"></button>
+                    </a>
+                    <!--if disabled-->
+                    <a th:href="@{'/campenable/' + ${camp.campId}}">
+                        <button type="button" th:class = "${camp.enabled}? 'btn btn-default':'btn btn-info'"
+                                th:disabled="${camp.enabled} == false" th:text="disable"></button>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+    </div>
 </div>
 <script>
     $('[data-toggle="popover"]').popover();

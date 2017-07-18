@@ -48,10 +48,14 @@ public class KCController {
 
 
 
-    @GetMapping("/a")//change later
+    @GetMapping("/createcamp")//change later
     //Show page that admins can register a camp
     public String registerCamp(Model model){
-        model.addAttribute("camp", new Camp());
+        Camp temp = new Camp();
+        temp.setStartDate(new Date());
+        temp.setEndDate(new Date());
+        temp.setCity(cityRepository.findOne((long)1));
+        model.addAttribute("camp", temp);
         Iterable<City> cityList = cityRepository.findAll();
         model.addAttribute("cityList", cityList);
         return "createcamp";
@@ -75,10 +79,10 @@ public class KCController {
         camp.setEnabled(false);
         camp.setAdminId(1);//change to user id later
         campRepository.save(camp);
-        return "index";
+        return "redirect:/";
     }
 
-    @RequestMapping("/b")//change later
+    @RequestMapping("/enable")//change later
     //superadmin sees all camps and can enable and disable
     public String enableCamps(Model model){
         Iterable<Camp> campList = campRepository.findAll();
@@ -92,17 +96,47 @@ public class KCController {
        Camp camp = campRepository.findOne(id);
        camp.setEnabled(!camp.isEnabled());
        campRepository.save(camp);
-       return "redirect:/b";
+       return "redirect:/enable";
     }
 
-    @RequestMapping("/editcamp/{id}")//change later
+    /*@RequestMapping("/admincamps")//change later
+    //See a list of all camps that the admin registered
+    public String seeSubmittedCamps(Model model, Principal principal){
+        User user = userService.findbyUsername(principal.getName());
+        Iterable<Camp> campList = campRepository.findAllByAdminId(user.getId());
+        model.addAttribute("campList", campList);
+        return "submittedcamps";
+    }*/
+
+
+    @GetMapping("/editcamp/{id}")//change later
     //edit this specific camp
-    public String editCamp(@PathVariable("id") long id, Model model){
+    public String editCampSubmit(@PathVariable("id") long id, Model model){
         Camp camp = campRepository.findOne(id);
         model.addAttribute("camp", camp);
         Iterable<City> cityList = cityRepository.findAll();
         model.addAttribute("cityList", cityList);
-        return "editcamp";
+        model.addAttribute("edit", true);
+        model.addAttribute("id", id);
+        return "createcamp";
+    }
+    @PostMapping("/editcamp/{id}")//change later
+    //edit this specific camp-click submit button
+    public String editCamp(@RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
+                           @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model){
+        model.addAttribute("camp", camp);
+        //convert date from Strings to sql dates
+        Date start = stringToDate(sDateString);
+        Date end = stringToDate(eDateString);
+        //find the city from the submitted city ID
+        City city = cityRepository.findOne(cityId);
+        //Saves the information
+        camp.setStartDate(start);
+        camp.setEndDate(end);
+        camp.setCity(city);
+        camp.setEnabled(false);
+        campRepository.save(camp);
+        return "redirect:/";
     }
 
     @GetMapping("/registeruser")
