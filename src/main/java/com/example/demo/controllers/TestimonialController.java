@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,34 +27,29 @@ public class TestimonialController {
 	private TestimonialRepository testimonialRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@Autowired
 	private CampRepository campRepository;
 	
 	
-	@RequestMapping(path= "/testimonial/{campId}")
-	public String addTestimonial(@PathVariable Long campId, Model model){
-		
-		User user = userRepository.findByEmail("email");
-		
-		Camp camp = campRepository.findOne(campId);
-		
-		
-		model.addAttribute("testimonial", new Testimonial());
-		
+	@RequestMapping(path= "/test/{campId}")
+	public String addTestimonial(@PathVariable("campId") Long campId, Model model, Principal principal){
+		Camp camp = campRepository.findByCampId(campId);
+		model.addAttribute("test", new Testimonial());
+		List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(campId);
 		model.addAttribute("camp", camp);
-		
+		model.addAttribute("testimonials", testimonials);
 		return "camp_page";
 	}
 
 	
-	@RequestMapping(path= "/testimonial/save", method=RequestMethod.POST)
-	public String saveTestimonial(@ModelAttribute("testimonial") Testimonial testimonial, Long campId,  Model model){
+	@RequestMapping(path= "/test/save", method=RequestMethod.POST)
+	public String saveTestimonial(@ModelAttribute("testimonial") Testimonial testimonial, Long campId,  Model model, Principal principal){
 		
-		User user = userRepository.findByEmail("email");
+		User user = userService.findbyUsername(principal.getName());
 		
-		Camp camp = campRepository.findOne(campId); 
+		Camp camp = campRepository.findByCampId(campId);
 		
 	
 		System.out.println(campId);
