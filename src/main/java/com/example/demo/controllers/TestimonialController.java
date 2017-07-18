@@ -64,12 +64,6 @@ public class TestimonialController {
 		
 		List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(camp.getCampId());
 		
-		for(Testimonial t: testimonials){
-			
-			System.out.println(t.getUser().getFullName());
-			System.out.println(t.getCamp().getCampName());
-			System.out.println(t.getComment());
-		}
 		model.addAttribute("camp", camp);
 		model.addAttribute("testimonials", testimonials);
 		

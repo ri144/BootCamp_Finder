@@ -34,9 +34,9 @@
 			<input type="submit" value="Submit"/>
 		</form>
 	</div>
-	<div th:if="${testimonials!=null}">
+	<div>
 		<ul>
-			<th:block th:each="tetsimonial : ${testimonials}">
+			<th:block th:each="testimonial : ${testimonials}">
 				<div>
 					<p th:text="${testimonial.user.fullName}"> </p>
 					<p th:text="${testimonial.comment}"></p>
