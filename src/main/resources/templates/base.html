@@ -43,7 +43,8 @@
                 <li><a href="/register" sec:authorize="isAnonymous()">Register</a></li>
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">View All Camps</a></li>
                 <li><a href="/a" sec:authorize="hasAuthority('ROLE_ADMIN')">Create New Camp</a></li>
-                <li><a href="/admincamps" sec:authorize="hasAuthority('ROLE_ADMIN')">ADMIN Camps</a></li>
+                <li><a href="/admincamps" sec:authorize="hasAuthority('ADMIN')">ADMIN Camps</a></li>
+                <li><a href="/myapplication" sec:authorize="isAuthenticated()">My Application</a></li>
 
             </ul>
         </div>
