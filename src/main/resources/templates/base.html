@@ -52,9 +52,10 @@
 
                 <li><a href="/login" sec:authorize="isAnonymous()">Login</a></li>
                 <li><a href="/logout" sec:authorize="isAuthenticated()">Logout</a></li>
+                <li><a href="/register" sec:authorize="isAnonymous()">Register</a></li>
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">List of Camps</a></li>
-                <!--<li><a href="/newcamp" sec:authorize="isAuthorized('ROLE_ADMIN')"/>My Camp Applications</a></li>
-                <li><a href="/mycamps"sec:authorize="isAuthorized('ROLE_ADMIN')"/>Register</a></li>-->
+                <li><a href="/admincamps" sec:authorize="hasAuthority('ADMIN')">Create New Camp</a></li>
+                <!--<li><a href="/mycamps" sec:authorize="isAuthorized('ROLE_ADMIN')">MyCamp</a></li>-->
                 <li>
                     <a href="components-documentation.html" target="_blank">
                         <i class="material-icons">dashboard</i> Components
