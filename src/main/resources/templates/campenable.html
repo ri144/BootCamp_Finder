@@ -8,31 +8,48 @@
 
 </head>
 <body>
-
-<!--<div th:replace="base :: navbar"></div>-->
-<th:block th:each="camp: ${campList}">
-    <div>
-        <th:block th:text="${camp.campName}"></th:block>
-        <!--if enabled-->
+<div>
+    <br/>
+    <br/>
+    <br/>
+    <!--<div th:replace="base :: navbar"></div>-->
+    <th:block th:each="camp: ${campList}">
+        <div>
+            <!--if enabled-->
             <a th:href="@{'/campenable/' + ${camp.campId}}">
                 <button type="button" th:class = "${camp.enabled}? 'btn btn-info':'btn btn-default'"
                         th:disabled="${camp.enabled}" th:text="enable"></button>
             </a>
-        <!--if disabled-->
+            <!--if disabled-->
             <a th:href="@{'/campenable/' + ${camp.campId}}">
                 <button type="button" th:class = "${camp.enabled}? 'btn btn-default':'btn btn-info'"
                         th:disabled="${camp.enabled} == false" th:text="disable"></button>
             </a>
-        <!--<div th:if ="${camp.enabled} == false">
-            <a th:href="@{'/campenable/' + ${camp.campId}}">
-            <button type="button" class = "btn btn-default"  th:text="enable"></button>
-            </a>
-            <button type="button" class = "btn btn-info" th:disabled="disabled"  th:text="disable"></button>
-        </div>-->
+            <div id="acordeon" class = "col-md-4 col-md-offset-2">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseSearch" th:text="${camp.campName}">
+                                    <i class="pe-7s-angle-down" style="font-size: 1.4em;"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSearch" class="panel-collapse collapse">
 
-    </div>
-</th:block>
+                            <div class="panel-body">
+                                <p th:text="'Description: '+${camp.description}"></p>
+                                <p th:text="'Start Date: '+ ${#dates.format(camp.startDate, 'MM-dd-yyyy')}"></p>
+                                <p th:text="'End Date: '+ ${#dates.format(camp.endDate, 'MM-dd-yyyy')}"></p>
+                            </div>
 
-<div th:replace="base :: footlinks"></div>
-</body>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</div>
+    <div th:replace="base :: footlinks"></div>
+    </body>
 </html>

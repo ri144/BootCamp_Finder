@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.*;
 import com.example.demo.repositories.*;
+import com.example.demo.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +36,12 @@ public class KCController {
     @Autowired
     CityRepository cityRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    private UserValidator userValidator;
+
 
 
     @GetMapping("/a")//change later
@@ -46,14 +53,14 @@ public class KCController {
     }
 
 
-    @PostMapping("/createcamp")//change later
+    @PostMapping("/createcamp")
     public String registerCampSave(@RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
                                    @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model){
         model.addAttribute("camp", camp);
         //convert date from Strings to sql dates
         Date start = stringToDate(sDateString);
         Date end = stringToDate(eDateString);
-        //convert find the city from thesubmitted city ID
+        //find the city from the submitted city ID
         City city = cityRepository.findOne(cityId);
         //Saves the information
         camp.setStartDate(start);
@@ -80,14 +87,52 @@ public class KCController {
        return "redirect:/b";
     }
 
+    @RequestMapping("/admincamps")//change later
+    public String seeSubmittedCamps(Model model, Principal principal){
+        User user = userRepository.findByEmail(principal.getName());
+        Iterable<Camp> campList = campRepository.findAllByAdminId(user.getId());
+        model.addAttribute("campList", campList);
+        return "submittedcamps";
+    }
+
+    @RequestMapping("/editcamp/{id}")//change later
+    public String seeSubmittedCamps(@PathVariable("id") long id, Model model){
+        Camp camp = campRepository.findOne(id);
+        model.addAttribute("camp", camp);
+        Iterable<City> cityList = cityRepository.findAll();
+        model.addAttribute("cityList", cityList);
+        return "editcamp";
+    }
+
+    @GetMapping("/registeruser")
+    public String showRegistrationPage(Model model){
+        model.addAttribute("user", new User());
+        Iterable<City> cityList = cityRepository.findAll();
+        model.addAttribute("cityList", cityList);
+        return "registeruser";
+    }
+
+    @PostMapping("/registeruser")
+    public String saveAccount(@Valid User user, BindingResult result, Model model){
+        model.addAttribute("user", user);
+        userValidator.validate(user,result);
+        if (result.hasErrors()){
+            return "registeruser";
+        }
+
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return "redirect:/login";
+    }
+
 
     public Date stringToDate(String dateString){
         //Converts a string to SQL date
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
         try {
-            java.util.Date date = df.parse(dateString);
-            return new java.sql.Date(date.getTime());
+            return df.parse(dateString);
+            //return new java.sql.Date(date.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }

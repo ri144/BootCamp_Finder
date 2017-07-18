@@ -11,10 +11,10 @@
 <body>
 <!--
 <div th:replace="base :: navbar"></div>-->
-<form th:object="${camp}" action = "createcamp" method = "POST">
+<form th:object="${camp}" action = "/createcamp" method = "POST">
    <div class="form-group">
        <label for="name">Bootcamp Name</label>
-       <input type="text" name="name" id = "name" th:field="*{campName}"/>
+       <input type="text" name="name" class = "form-control" id = "name" th:field="*{campName}"/>
    </div>
    <div class="form-group">
        <label for="description">Bootcamp Description</label>
@@ -22,15 +22,15 @@
    </div>
    <div class="form-group">
        <label for="topic">Topics Covered</label>
-       <input type="text" id = "topic" th:field="*{topic}"/>
+       <input type="text" class = "form-control" id = "topic" th:field="*{topic}"/>
    </div>
    <div class="form-group">
        <label for="sdate">Start Date</label>
-       <input type="date" id = "sdate" th:name = "sDate"/>
+       <input class="datepicker form-control" type = "text" id = "sdate" th:name = "sDate"/>
    </div>
    <div class="form-group">
        <label for="edate">End Date</label>
-       <input type="date" id = "edate" th:name = "eDate"/>
+       <input class="datepicker form-control" type = "text" id = "edate" th:name = "eDate"/>
    </div>
    <div class="form-group">
        <select class="selectpicker" data-style="form-control" data-width="25%" title = "Choose City" th:name = "cityId">
@@ -42,7 +42,11 @@
     <button type="submit" class = "btn btn-default">Submit</button>
 
 </form>
-
+<script>
+    $('.datepicker').datepicker({
+        weekStart:1
+    });
+</script>
 <div th:replace="base :: footlinks"></div>
 </body>
 </html>

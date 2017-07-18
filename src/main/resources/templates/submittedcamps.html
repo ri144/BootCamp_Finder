@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <th:block th:replace="base :: head"></th:block>
+
+    <title>View Bootcamp</title>
+
+</head>
+<body>
+<div>
+    <th:block th:each="camp: ${campList}">
+        <p th:text = "${camp.campName}"></p>
+        <a th:href = "@{'/editcamp/' +${camp.campId}}" size = "14" th:text = "edit"></a>
+    </th:block>
+</div>
+<div th:replace="base :: footlinks"></div>
+</body>
+</html>
