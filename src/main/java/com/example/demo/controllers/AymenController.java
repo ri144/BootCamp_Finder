@@ -1,10 +1,14 @@
-/*package com.example.demo.controllers;
-
+package com.example.demo.controllers;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
+
+import com.example.demo.models.Camp;
 import com.example.demo.models.User;
+import com.example.demo.repositories.CampRepository;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.UserService;
 import com.google.common.collect.Lists;
 import it.ozimov.springboot.mail.model.Email;
 import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
@@ -12,32 +16,58 @@ import it.ozimov.springboot.mail.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AymenController {
 	
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
 
+	@Autowired
+	CampRepository campRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
     @Autowired
     public EmailService emailService;
     
-    public void sendEmailWithoutTemplating(String username, String email2) throws UnsupportedEncodingException {
+    //This method sends an email to the Camp Admin
+    public void sendEmailWithoutTemplating(String currentUserName, String currentUserEmail, String adminName, String adminEmail, String body, String subject) throws UnsupportedEncodingException {
         final Email email = DefaultEmail.builder()
-                .from(new InternetAddress("aymehai@gmail.com", "Admin"))
-                .to(Lists.newArrayList(new InternetAddress(email2, username)))
-                .subject("goat")
-                .body("lel")
+                .from(new InternetAddress(currentUserEmail, currentUserName))
+                .to(Lists.newArrayList(new InternetAddress(adminEmail, adminName)))
+                .subject(subject)
+                .body(body)
                 .encoding("UTF-8").build();
         emailService.send(email);
     }
     
-    @PostMapping("/moreinfo")
-    public String creatememe(Model model, Principal principal) throws UnsupportedEncodingException {
-        User newUser = userRepository.findByUsername(principal.getName());
-        sendEmailWithoutTemplating(newUser.getFullName(), newUser.getEmail());
-        return "gallery";
+    //This Mapping Receives the Camp
+    @RequestMapping("/email/{id}")
+    public String RequestMoreInfo(@PathVariable("id") Long id, Model model, Principal principal, HttpServletRequest getSubject, HttpServletRequest getBody) throws UnsupportedEncodingException{
+    	
+    	//Gets logged in Users information
+    	User newUser = userRepository.findByUsername(principal.getName());
+    	String currentUserEmail = newUser.getEmail();
+    	String currentUserName = newUser.getFullName();
+    	
+    	//uses camp.camp_id and assigns it to Camp currentCamp
+    	Camp currentCamp = campRepository.findByCampId(id);
+    	
+    	//gets currentCamp's admin ID and assigns it to User campInfo
+    	User campInfo = userService.findById(currentCamp.getAdminId());
+    	
+    	//Gets HttpServletRequest and assigns it to String subject & body
+    	String subject = getSubject.getParameter("subject");
+    	String body = getBody.getParameter("body");
+    	
+    	//Uses method sendEmailWithoutTemplating
+    	sendEmailWithoutTemplating(currentUserName, currentUserEmail, campInfo.getFullName(), campInfo.getEmail(), body, subject);
+    	return "moreinfo";
     }
+    
 }
-*/
