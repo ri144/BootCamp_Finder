@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Application status</title>
+
+    
+</head>
+	<body>
+	<div >
+		<p th:text="${usercamp.user.fullName}"></p>
+		<p th:text="${usercamp.user.email}"></p>
+		<p th:text="${usercamp.user.aboutMe}"></p>
+		<form th:action="@{/accept/{id}(id=${usercamp.user.id})}" th:method="post">
+			<select class="selectpicker" data-style="form-control" data-width="25%" title = "status" name = "status">
+                <option value="pending" >pending</option>
+                <option value="accept" >accept</option>
+               	<option value="reject" >reject</option>
+            </select>
+            <input type="submit" value="Submit"/>
+		</form>
+		
+	</div>
+</body>
+</html>

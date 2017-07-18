@@ -1,5 +1,7 @@
 package com.example.demo.repositories;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.example.demo.models.UserCamp;
@@ -7,5 +9,7 @@ import com.example.demo.models.UserCamp;
 public interface UserCampRepository extends CrudRepository<UserCamp, Long>{
 
 	UserCamp findByUser_Id(long id);
+
+	List<UserCamp> findByCamp_CampId(Long campId);
 
 }
