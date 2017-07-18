@@ -7,22 +7,31 @@
     <title>All Bootcamps</title>
 
 </head>
-<body>
-	<h1 th:text="${message}"></h1>
-	<!--<div th:replace="base :: navbar"></div>-->
-	<th:block th:each="camp: ${allCamps}">
-		<div class="content table-responsive table-full-width ">
-			<table class="table table-hover" >
-				<tr>
-					<th>Camp Name</th>
-				</tr>
-					<td ><a th:href="@{'/camp/' + ${camp.campId}}" th:text="${camp.campName}"></a></td>
-			</table>
-		
-		</div>
-	
-	
-	</th:block>
+<body class="profile-page">
+<th:block th:replace="base :: nav"></th:block>
+<div class="wrapper">
+    <div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+    <div class="main main-raised">
+        <h1 th:text="${message}"></h1>
+        <!--<div th:replace="base :: navbar"></div>-->
+        <table class="table table-hover">
+            <th>Camp Name</th>
+            <th>Camp Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th:block th:each="camp: ${allCamps}">
+                <div class="content table-responsive table-full-width ">
+                    <tr>
+                        <td ><a th:href="@{'/camp/' + ${camp.campId}}" th:text="${camp.campName}"></a></td>
+                        <td th:text="${camp.description}"></td>
+                        <td th:text="${#dates.format(camp.startDate, 'MM/dd/yyyy')}"></td>
+                        <td th:text="${#dates.format(camp.endDate, 'MM/dd/yyyy')}"></td>
+                    </tr>
+                </div>
+            </th:block>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>

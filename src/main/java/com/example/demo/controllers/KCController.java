@@ -65,7 +65,7 @@ public class KCController {
     @PostMapping("/createcamp")
     //registercamp clicks submit button
     public String registerCampSave(@RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
-                                   @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model){
+                                   @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model, Principal principal){
         model.addAttribute("camp", camp);
         //convert date from Strings to sql dates
         Date start = stringToDate(sDateString);
@@ -77,7 +77,7 @@ public class KCController {
         camp.setEndDate(end);
         camp.setCity(city);
         camp.setEnabled(false);
-        camp.setAdminId(1);//change to user id later
+        camp.setAdminId(userService.findbyUsername(principal.getName()).getId());
         campRepository.save(camp);
         return "redirect:/";
     }
