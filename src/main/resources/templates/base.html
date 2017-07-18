@@ -17,11 +17,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
     <!-- CSS Files -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/material-kit.css" rel="stylesheet"/>
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
+    <link href="/assets/css/demo.css" rel="stylesheet" />
 </head>
 <body>
 <nav class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">
@@ -42,9 +42,9 @@
                 <li><a href="/logout" sec:authorize="isAuthenticated()">Logout</a></li>
                 <li><a href="/register" sec:authorize="isAnonymous()">Register</a></li>
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">View All Camps</a></li>
-                <li><a href="/a" sec:authorize="hasAuthority('ROLE_ADMIN')">Create New Camp</a></li>
-                <li><a href="/admincamps" sec:authorize="hasAuthority('ADMIN')">ADMIN Camps</a></li>
-                <li><a href="/myapplication" sec:authorize="isAuthenticated()">My Application</a></li>
+                <li><a href="/a" sec:authorize="hasAuthority('ADMIN')">Create New Camp</a></li>
+                <li><a href="/admincamps" sec:authorize="hasAuthority('ADMIN')">My Camps</a></li>
+                <li><a href="/myapplication" sec:authorize="hasAuthority('USER')">My Application</a></li>
 
             </ul>
         </div>
