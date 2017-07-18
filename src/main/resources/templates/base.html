@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="thymeleaf.org " xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head th:fragment="head">
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png"/>
@@ -52,10 +53,8 @@
                 <li><a href="/login" sec:authorize="isAnonymous()">Login</a></li>
                 <li><a href="/logout" sec:authorize="isAuthenticated()">Logout</a></li>
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">List of Camps</a></li>
-                <li><a href="/myApp" sec:authorize="isAuthenticated()">My Camp Applications</a></li>
-                <li><a href="/register" sec:authorize="isAnonymous()">Register</a></li>
-                <li><a href="/newcamp" sec:authorize="hasAuthority(ADMIN)">New Camp</a></li>
-                <li><a href="/newcamp" sec:authorize="hasAuthority(ADMIN)">My Camps</a></li>
+                <!--<li><a href="/newcamp" sec:authorize="isAuthorized('ROLE_ADMIN')"/>My Camp Applications</a></li>
+                <li><a href="/mycamps"sec:authorize="isAuthorized('ROLE_ADMIN')"/>Register</a></li>-->
                 <li>
                     <a href="components-documentation.html" target="_blank">
                         <i class="material-icons">dashboard</i> Components
