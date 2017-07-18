@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="thymeleaf.org"
+	xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+<th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+	<th:block th:replace="base :: nav"></th:block>
+
+	<div class="container">
+
+		<form th:action="@{/moreinfo}" method="post">
+			<div class="form-group">
+				<label for="title">Post</label> <input type="text" name="subject" />
+				<textarea type="text" class="form-control" name="body" placeholder="What would you like to say =)"></textarea>
+			</div>
+			<input class="btn btn-default" value="Send" />
+		</form>
+
+	</div>
+	<!-- /.container -->
+
+</body>
+<!--   Core JS Files   -->
+<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/js/material.min.js"></script>
+
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="../assets/js/nouislider.min.js" type="text/javascript"></script>
+
+<!--  Plugin for the Datepicker, full documentation here: http://www.eyecon.ro/bootstrap-datepicker/ -->
+<script src="../assets/js/bootstrap-datepicker.js"
+	type="text/javascript"></script>
+
+<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
+<script src="../assets/js/material-kit.js" type="text/javascript"></script>
+
+</html>
