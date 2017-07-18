@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
 
@@ -8,8 +8,12 @@
     <title>Register Bootcamp</title>
 
 </head>
-<body>
-<!--
+<body class="profile-page">
+<th:block th:replace="base :: nav"></th:block>
+<div class="wrapper">
+    <div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+    <div class="main main-raised">
+
 <div th:replace="base :: navbar"></div>-->
 <form th:object="${camp}" action = "/createcamp" method = "POST">
    <div class="form-group">
@@ -48,5 +52,9 @@
     });
 </script>
 <div th:replace="base :: footlinks"></div>
+
+    </div>
+</div>
 </body>
+
 </html>

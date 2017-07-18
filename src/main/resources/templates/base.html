@@ -54,6 +54,8 @@
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">List of Camps</a></li>
                 <li><a href="/myApp" sec:authorize="isAuthenticated()">My Camp Applications</a></li>
                 <li><a href="/register" sec:authorize="isAnonymous()">Register</a></li>
+                <li><a href="/newcamp" sec:authorize="hasAuthority(ADMIN)">New Camp</a></li>
+                <li><a href="/newcamp" sec:authorize="hasAuthority(ADMIN)">My Camps</a></li>
                 <li>
                     <a href="components-documentation.html" target="_blank">
                         <i class="material-icons">dashboard</i> Components
