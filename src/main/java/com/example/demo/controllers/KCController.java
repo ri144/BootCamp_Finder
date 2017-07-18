@@ -98,7 +98,7 @@ public class KCController {
     @RequestMapping("/admincamps")//change later
     //See a list of all camps that the admin registered
     public String seeSubmittedCamps(Model model, Principal principal){
-        User user = userService.findByEmail(principal.getName());
+        User user = userService.findbyUsername(principal.getName());
         Iterable<Camp> campList = campRepository.findAllByAdminId(user.getId());
         model.addAttribute("campList", campList);
         return "submittedcamps";

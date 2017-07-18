@@ -8,27 +8,15 @@
 
 </head>
 <body>
-
+	<h1 th:text="${message}"></h1>
 	<!--<div th:replace="base :: navbar"></div>-->
 	<th:block th:each="camp: ${allCamps}">
 		<div class="content table-responsive table-full-width ">
 			<table class="table table-hover" >
 				<tr>
 					<th>Camp Name</th>
-					<th>Topic</th>
-					<th>Description</th>
-					<th>Start Date</th>
-					<th>End Date</th>
-					<th>City</th>
-					<th></th>
 				</tr>
-					<td ><a th:href="@{/camp/{id}(id = ${camp.campId})}" th:text="${camp.campName}"></a></td>
-					<td th:text="${camp.topic}"></td>
-					<td th:text="${camp.description}"></td>
-					<td th:text="${camp.startDate}"></td>
-					<td th:text="${camp.endDate}"></td>
-					<td th:text="${camp.city.city}"></td>
-					
+					<td ><a th:href="@{'/camp/' + ${camp.campId}}" th:text="${camp.campName}"></a></td>
 			</table>
 		
 		</div>

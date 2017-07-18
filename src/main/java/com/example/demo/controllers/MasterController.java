@@ -45,7 +45,7 @@ public class MasterController {
         return "camp_page";
     }
    
-    @RequestMapping("/camp/all")
+    @RequestMapping("/campLists")
     public String allCamps(Model model){
     	
     	Iterable<Camp> campList = campRepo.findAll();
@@ -63,4 +63,12 @@ public class MasterController {
     	
     	return "allCamps";
     }
+
+    /*@RequestMapping("/admincamps")
+    public String viewMyCamps(Principal principal, Model model){
+        User user = userRepo.findByUsername(principal.getName());
+        Iterable<Camp> campList = campRepo.findAllByAdminId(user.getId());
+        model.addAttribute("allCamps", campList);
+        return "allCamps";
+    }*/
 }
