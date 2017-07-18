@@ -27,7 +27,7 @@ public class DaylinController {
 
     @RequestMapping("/")
     public String index(Model model){
-        Camp c = campRepo.findByCampId(1l);
+        Camp c = campRepo.findByCampId(2l);
         City city =  c.getCity();
         List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(c.getCampId());
         model.addAttribute("camp", c);
