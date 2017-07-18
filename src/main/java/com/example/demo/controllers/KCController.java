@@ -117,6 +117,8 @@ public class KCController {
         model.addAttribute("user", user);
         userValidator.validate(user,result);
         if (result.hasErrors()){
+            Iterable<City> cityList = cityRepository.findAll();
+            model.addAttribute("cityList", cityList);
             return "registeruser";
         }
 
