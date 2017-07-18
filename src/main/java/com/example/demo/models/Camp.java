@@ -25,7 +25,7 @@ public class Camp {
 	@JoinColumn(name="city_Id")
 	private City city;
 	
-	@Transient/*@Column(name = "enabled")*/
+	@Column(name = "enabled")
 	private boolean enabled;
 	
 	@Column(name = "adminId")
