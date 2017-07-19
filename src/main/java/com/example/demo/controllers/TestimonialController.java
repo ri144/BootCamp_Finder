@@ -40,6 +40,7 @@ public class TestimonialController {
 		List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(campId);
 		model.addAttribute("camp", camp);
 		model.addAttribute("testimonials", testimonials);
+		model.addAttribute("user", userService.findbyUsername(principal.getName()));
 		return "camp_page";
 	}
 
@@ -62,6 +63,7 @@ public class TestimonialController {
 		
 		model.addAttribute("camp", camp);
 		model.addAttribute("testimonials", testimonials);
+		model.addAttribute("user", userService.findbyUsername(principal.getName()));
 		
 		return "camp_page";
 		
