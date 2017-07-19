@@ -8,10 +8,7 @@ import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.models.Camp;
 import com.example.demo.models.Testimonial;
@@ -66,7 +63,20 @@ public class TestimonialController {
 		model.addAttribute("user", userService.findbyUsername(principal.getName()));
 		
 		return "camp_page";
-		
+
 	}
+
+	@GetMapping("/edittest/{id}")
+	public String editTestimonial(@PathVariable("id") Long id, @ModelAttribute("testimonial") Testimonial testimonial, Model model, Principal principal){
+
+		Testimonial test = testimonialRepository.findOne(id);
+		model.addAttribute("test", test);
+		List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(test.getCamp().getCampId());
+		model.addAttribute("camp", test.getCamp());
+		model.addAttribute("testimonials", testimonials);
+		model.addAttribute("user", userService.findbyUsername(principal.getName()));
+		return "camp_page";
+	}
+
 
 }

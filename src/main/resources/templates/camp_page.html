@@ -65,6 +65,9 @@
 											<p class="text-center" th:text="${t.comment}"></p>
 											<p class="text-center"
 												th:text="${#dates.format(t.date, 'MM-dd-yyyy')}"></p>
+											<th:block th:if="${user.id}==${camp.adminId}">
+                                            <a class="text-center" th:href="@{'/edittest/'+${t.testimonialId}}"th:text="edit"></a>
+											</th:block>
 										</div>
 									</div>
 								</div>
@@ -126,6 +129,7 @@
 							th:object="${test}">
 							<textarea class="form-control" th:field="*{comment}"></textarea>
 							<input type="hidden" name="campId" th:value="${camp.campId}" />
+                            <input type="hidden" th:field="*{testimonialId}" th:value="*{testimonialId}" />
 							<input type="submit" class="btn btn-default" value="Submit" />
 						</form>
 					</div>
