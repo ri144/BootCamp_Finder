@@ -91,13 +91,22 @@ public class UserCampController {
 	@RequestMapping("submitApp/{id}")
 	public String submit(Model model, Principal principal, @PathVariable("id") Long id){ //id is campid
 		User u = userService.findbyUsername(principal.getName());
-		UserCamp userCamp = new UserCamp();
-		Camp c = campRepo.findByCampId(id);
-		userCamp.setCamp(c);
-		userCamp.setStatus("pending");
-		userCamp.setUser(u);
-		userCampRepository.save(userCamp);
-		return "redirect:/camp/" + String.valueOf(id);
+		boolean check= false;
+		UserCamp userCamp = userCampRepository.findByUser_IdAndCamp_CampId(u.getId(),id);
+		if(userCamp!=null){
+		    return "redirect:/myapplication";
+        }else {
+            UserCamp userCamp1= new UserCamp();
+		    Camp c = campRepo.findByCampId(id);
+            userCamp1.setCamp(c);
+            userCamp1.setStatus("pending");
+            userCamp1.setUser(u);
+
+            userCampRepository.save(userCamp1);
+            return "redirect:/camp/" + String.valueOf(id);
+        }
+
+
 	}
 	
 }
