@@ -9,6 +9,14 @@
 <title>BootCamp Finder</title>
 <th:block th:replace="base :: head"></th:block>
 </head>
+<style>
+	.main {
+		padding-top: 20px;
+		padding-right: 30px;
+		padding-bottom: 50px;
+		padding-left: 50px;
+	}
+</style>
 <body>
 	<th:block th:replace="base :: nav"></th:block>
 
@@ -60,7 +68,7 @@
 			<th:block sec:authorize="hasAuthority('USER')">
 				<a th:href="@{'/test/' + ${camp.campId}}">Write a Testimonial</a>
 			</th:block>
-			<th:block sec:authorize="hasAuthority('ADMIN')">
+			<th:block th:if="${user.id}==${camp.adminId}">
 				<a th:href="@{'/editcamp/' + ${camp.campId}}">Edit Camp Data</a>
 			</th:block>
 			<br />

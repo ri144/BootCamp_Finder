@@ -46,9 +46,9 @@
        <input class="datepicker form-control" type = "text" id = "edate"
               th:value = "${#dates.format(camp.endDate,'MM/dd/yyyy')}" th:name = "eDate"/>
    </div>
-   <div class="form-group">
-       <select class="selectpicker" data-style="form-control" data-width="25%" title = "Choose City" th:name = "cityId">
-           <label for="city">Select City</label>
+    <div class="input-group">
+        <label for ="city">Select City</label>
+       <select class="form-control" data-style="form-control" data-width="25%" title = "Choose City" th:name = "cityId">
            <th:block th:each="city: ${cityList}">
                <option th:value="${city.id}" th:text = "${city.city}" th:selected="${camp.city.id} == ${city.id}" id = "city">
                    cityname</option>
