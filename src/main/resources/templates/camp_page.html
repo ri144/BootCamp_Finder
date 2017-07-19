@@ -10,82 +10,126 @@
 <th:block th:replace="base :: head"></th:block>
 </head>
 <style>
-	.main {
-		padding-top: 20px;
-		padding-right: 30px;
-		padding-bottom: 50px;
-		padding-left: 50px;
-	}
+.main {
+	padding-top: 20px;
+	padding-right: 30px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+}
+
+.title.text-center {
+	margin-bottom: 50px;
+	color: white;
+}
 </style>
 <body>
 	<th:block th:replace="base :: nav"></th:block>
 
 	<div class="wrapper">
-		<div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
-		<div class="main main-raised">
-			<div class="col-md-12">
-				<h1 th:text="${camp.campName}"></h1>
-			</div>
-			<br />
-			<div class="col-md-12">
-				<h2 th:text="'Location: ' + ${camp.city.city}"></h2>
-				<h3
-					th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}" />
-				<h4 th:text="'Topics Covered: ' + ${camp.topic}" />
-				<h5 th:text="'Details: ' + ${camp.description}" />
-			</div>
-			<br />
-			<div class="col-md-12">
-				<h5>
-					<strong>Comments</strong>
-				</h5>
-			</div>
-			<div th:if="${testimonials!=null}">
-				<th:block th:each="t : ${testimonials}">
-					<div>
-						<table class="table">
-							<tr>
-								<th>User</th>
-								<th>Comments</th>
-								<th>Date</th>
-							</tr>
-							<tr>
-								<td th:text="${t.user.fullName}"></td>
-								<td th:text="${t.comment}"></td>
-								<td th:text="${#dates.format(t.date, 'MM-dd-yyyy')}"></td>
-							</tr>
-						</table>
+		<div class="header header-filter"
+			style="background-image: url('../assets/img/examples/city.jpg');">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<br /> <br /> <br />
+						<h1 class="title text-center" th:text="${camp.campName}"></h1>
 					</div>
-				</th:block>
+				</div>
 			</div>
-			<br /> <a th:href="@{'/email/' + ${camp.campId}}">Send the Camp
-				Admin an E-mail</a> <br />
-			<th:block sec:authorize="hasAuthority('USER')">
-				<a th:href="@{'/submitApp/' + ${camp.campId}}">Submit an
-					Application to This Camp</a>
-			</th:block>
-			<br />
-			<th:block sec:authorize="hasAuthority('USER')">
-				<a th:href="@{'/test/' + ${camp.campId}}">Write a Testimonial</a>
-			</th:block>
-			<th:block th:if="${user.id}==${camp.adminId}">
-				<a th:href="@{'/editcamp/' + ${camp.campId}}">Edit Camp Data</a>
-			</th:block>
-			<br />
-			<th:block sec:authorize="hasAuthority('ADMIN') ">
-				<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
-					Applicants</a>
-			</th:block>
-			<th:block sec:authorize="hasAuthority('SUPER') ">
-				<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
-					Applicants</a>
-			</th:block>
-			<div th:if="${test!=null}">
-				<form th:action="@{/test/save}" th:method="post" th:object="${test}">
-					<textarea th:field="*{comment}"></textarea>
-					<input type="hidden" name="campId" th:value="${camp.campId}" /> <input
-						type="submit" value="Submit" />
-				</form>
+		</div>
+		<div class="main main-raised">
+			<div class="container">
+				<div class="col-md-12">
+					<h1></h1>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<h2 th:text="'Location: ' + ${camp.city.city}"></h2>
+					<h3
+						th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}" />
+					<h4 th:text="'Topics Covered: ' + ${camp.topic}" />
+					<h5 th:text="'Details: ' + ${camp.description}" />
+				</div>
+				<br />
+				<h5 class="text-center">
+					<strong>Testimonials</strong>
+				</h5>
+				<div th:if="${testimonials!=null}">
+					<th:block th:each="t : ${testimonials}">
+						<div class="card-container">
+							<div class="card">
+								<div class="front">
+									<div class="content">
+										<div class="main">
+											<h3 class="name text-center" th:text="${t.user.fullName}"></h3>
+											<p class="text-center" th:text="${t.comment}"></p>
+											<p class="text-center"
+												th:text="${#dates.format(t.date, 'MM-dd-yyyy')}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</th:block>
+				</div>
+				<br />
+				<nav aria-label="Page navigation">
+					<div class="text-center">
+						<ul class="pagination pagination-lg">
+							<li><a th:href="'/feed/'+${valuePrev}" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+							</a></li>
+							<th:block th:each="v : ${values}">
+								<li><a th:text="${v}" th:href="'/feed/' + ${v}" /></li>
+							</th:block>
+							<li><a th:href="'/feed/'+${valueNext}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</ul>
+					</div>
+				</nav>
+				<div class="container">
+
+					<a th:href="@{'/email/' + ${camp.campId}}">Send the Camp Admin
+						an E-mail</a>
+
+					<th:block sec:authorize="hasAuthority('USER')">
+						<br />
+						<a th:href="@{'/submitApp/' + ${camp.campId}}">Submit an
+							Application to This Camp</a>
+					</th:block>
+
+					<th:block sec:authorize="hasAuthority('ADMIN')">
+						<br />
+						<a th:href="@{'/test/' + ${camp.campId}}">Write a Testimonial</a>
+					</th:block>
+
+					<th:block th:if="${user.id}==${camp.adminId}">
+						<br />
+						<a th:href="@{'/editcamp/' + ${camp.campId}}">Edit Camp Data</a>
+					</th:block>
+
+					<th:block sec:authorize="hasAuthority('ADMIN') ">
+						<br />
+						<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
+							Applicants</a>
+					</th:block>
+
+					<th:block sec:authorize="hasAuthority('SUPER') ">
+						<br />
+						<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
+							Applicants</a>
+					</th:block>
+
+					<div th:if="${test!=null}">
+						<form th:action="@{/test/save}" th:method="post"
+							th:object="${test}">
+							<textarea class="form-control" th:field="*{comment}"></textarea>
+							<input type="hidden" name="campId" th:value="${camp.campId}" />
+							<input type="submit" class="btn btn-default" value="Submit" />
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
