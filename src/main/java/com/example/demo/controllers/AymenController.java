@@ -51,7 +51,35 @@ public class AymenController {
     	model.addAttribute("id", id);
     	return "moreInfo";
     }
-    
+
+	@GetMapping("/email2/{id}")
+	public String RequestMoreInfoU(Model model, @PathVariable("id") Long id){ //path id is for user
+		model.addAttribute("id", id);
+		model.addAttribute("check", 2);
+		return "moreInfo";
+	}
+
+	@PostMapping("/moreInfo2/{id}")
+	public String moreInfoPageU(@PathVariable("id") Long id, Model model, Principal principal, HttpServletRequest getSubject, HttpServletRequest getBody) throws UnsupportedEncodingException{
+
+		//Gets logged in Users information
+		User newUser = userRepository.findByUsername(principal.getName());
+		String currentUserEmail = newUser.getEmail();
+		String currentUserName = newUser.getFullName();
+
+		//gets currentCamp's admin ID and assigns it to User campInfo
+
+		User camper = userService.findById(id);
+
+		//Gets HttpServletRequest and assigns it to String subject & body
+		String subject = getSubject.getParameter("subject");
+		String body = getBody.getParameter("body") + "\n \n To respond to this user please email: " + currentUserEmail;
+		System.out.println(body);
+		//Uses method sendEmailWithoutTemplating
+		sendEmailWithoutTemplating(currentUserName, currentUserEmail, camper.getFullName(), camper.getEmail(), body, subject);
+		return "redirect:/";
+	}
+
     @PostMapping("/moreInfo/{id}")
     public String moreInfoPage(@PathVariable("id") Long id, Model model, Principal principal, HttpServletRequest getSubject, HttpServletRequest getBody) throws UnsupportedEncodingException{
     	

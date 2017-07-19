@@ -10,7 +10,7 @@
 		<div class="header header-filter"
 			style="background-image: url('../assets/img/examples/city.jpg');"></div>
 		<div class="main main-raised">
-			<form th:action="@{'/moreInfo/' + ${id}}" method="post">
+			<form th:action="@{'/moreInfo' + ${check} + '/' + ${id}}" method="post">
 				<div class="form-group">
 					<div class="container">
 						<br /> <br />

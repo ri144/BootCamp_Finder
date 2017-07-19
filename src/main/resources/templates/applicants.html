@@ -26,6 +26,8 @@
 					<td> <a th:href="@{'/applicant/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}}" th:text="${usercamp.user.fullName}"></a></td>
 					
 					<td th:text="${usercamp.status}"></td>
+
+					<td> <a th:href="@{'/email2/' + ${usercamp.user.id}}" th:text="'Send ' + ${usercamp.user.fullName} + ' an email.'"></a></td>
 			</tr>
 			
 		</table>
