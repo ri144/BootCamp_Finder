@@ -3,42 +3,49 @@
 <head>
 
     <th:block th:replace="base :: head"></th:block>
-    <title>Title</title>
+    <title>Bootstrap Finder</title>
 </head>
 <body>
+<body class="signup-page">
 <th:block th:replace="base :: nav"></th:block>
-<div class= "col-md-4 col-md-offset-1">
+<div class="wrapper">
+    <div class="header header-filter" style="background-image: url('../assets/img/city.jpg'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="card card-signup">
     <form autocomplete = "off" th:action="@{/registeruser}" th:object="${user}" method="post">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <div th:class="(${#fields.hasErrors('username')}) ? 'form-group label-floating has-error': 'form-group'">
-                <input type="text" name="username" id = "username" class="form-control" th:field="*{username}"/>
+        <div class="header header-primary text-center">
+            <h4>Sign Up</h4>
+        </div>
+        <div class="content">
+            <div class="input-group" th:class="(${#fields.hasErrors('username')}) ? 'form-group label-floating has-error': 'form-group'" >
                 <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</span>
+                <input type="text" name="username" id = "username" class="form-control" th:field="*{username}" placeholder="username"/>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <div th:class="(${#fields.hasErrors('email')}) ? 'form-group label-floating has-error': 'form-group'">
-                <input type="email" name="email" id="email" class="form-control" th:field="*{email}"/>
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label for="name">Password</label>
-            <div th:class="(${#fields.hasErrors('password')}) ? 'form-group label-floating has-error': 'form-group'">
-                <input type="password" name="password" id="password" class="form-control" th:field="*{password}"/>
+            <div class="input-group" th:class="(${#fields.hasErrors('email')}) ? 'form-group label-floating has-error': 'form-group'">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+                <input type="email" name="email" id="email" class="form-control" th:field="*{email}" placeholder="email"/>
+            </div>
+
+            <div class="input-group" th:class="(${#fields.hasErrors('password')}) ? 'form-group label-floating has-error': 'form-group'">
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+                <input type="password" name="password" id="password" class="form-control" th:field="*{password}" placeholder="password"/>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="name">Full Name</label>
-            <div th:class="(${#fields.hasErrors('fullName')}) ? 'form-group label-floating has-error': 'form-group'">
-                <input type="text" name="name" id="name"  class="form-control" th:field="*{fullName}"/>
+
+
+            <div class="input-group" th:class="(${#fields.hasErrors('fullName')}) ? 'form-group label-floating has-error': 'form-group'">
                 <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
+                <input type="text" name="name" id="name" class="form-control" th:field="*{fullName}" placeholder="full name"/>
             </div>
-        </div>
-        <div class="form-group">
+
+            <div class="input-group" th:class="(${#fields.hasErrors('aboutMe')}) ? 'form-group label-floating has-error': 'form-group'">
+                <span th:if="${#fields.hasErrors('aboutMe')}" th:errors="*{aboutMe}">Name Error</span>
+                <input type="text" name="aboutMe" id="aboutMe" class="form-control" th:field="*{aboutMe}" placeholder="Tell us about yourself"/>
+            </div>
+
+        <div class="input-group">
             <select class="selectpicker" data-style="form-control" data-width="25%" title = "Choose City" th:name = "cityId">
                 <th:block th:each="city: ${cityList}">
                     <option th:value="${city.id}" th:text = "${city.city}">cityname</option>
@@ -56,8 +63,15 @@
         <div class= "col-md-3">
             <button type="submit" class="btn btn-round btn-info" value="Sign Up">Sign Up</button>
         </div>
+        </div>
     </form>
+                    </div>
 </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
 <div th:replace="base :: footlinks"></div>
 </body>
 </html>
