@@ -10,6 +10,7 @@
 		<div class="header header-filter"
 			style="background-image: url('../assets/img/examples/city.jpg');"></div>
 		<div class="main main-raised">
+		<th:block th:if="${check != null}">
 			<form th:action="@{'/moreInfo' + ${check} + '/' + ${id}}" method="post">
 				<div class="form-group">
 					<div class="container">
@@ -31,6 +32,30 @@
 					</div>
 				</div>
 			</form>
+			</th:block>
+			<th:block th:unless="${check != null}">
+				<form th:action="@{'/moreInfo' + '/' + ${id}}" method="post">
+					<div class="form-group">
+						<div class="container">
+							<br /> <br />
+							<div class="col-md-5">
+								<label for="title">Subject</label> <br /> <input type="text"
+									class="form-control" name="subject"
+									placeholder="Please state your subject =)" />
+							</div>
+							<div class="col-md-12">
+								<br /> <label for="title">Body</label> <input type="text"
+									class="form-control" name="body"
+									placeholder="What would you like to say =)" />
+							</div>
+	
+							<div class="col-md-12">
+								<input type="submit" class="btn btn-default" value="Send" />
+							</div>
+						</div>
+					</div>
+				</form>
+			</th:block>
 		</div>
 	</div>
 	<!-- /.container -->
