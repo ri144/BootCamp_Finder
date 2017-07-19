@@ -16,6 +16,12 @@ public class City {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city;
 
+	public City(){}
+
+	public City(String city){
+		this.city = city;
+	}
+
 	public long getId() {
 		return id;
 	}
