@@ -12,4 +12,5 @@ public interface CampRepository extends CrudRepository<Camp, Long> {
     Iterable<Camp> findAllByEnabled(boolean enabled);
 	List<Camp> findByCity_Id(Long id);
 	Camp findByCampIdAndAdminId(Long campId, long id);
+	Iterable<Camp> findAllByAdminId(Long adminid);
 }

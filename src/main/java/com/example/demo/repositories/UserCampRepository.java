@@ -12,4 +12,6 @@ public interface UserCampRepository extends CrudRepository<UserCamp, Long>{
 
 	List<UserCamp> findByCamp_CampId(Long campId);
 
+	UserCamp findByUser_IdAndCamp_CampId(Long userid, long campid);
+
 }

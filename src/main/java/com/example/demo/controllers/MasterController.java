@@ -67,7 +67,7 @@ public class MasterController {
     @RequestMapping("/admincamps")
     public String viewMyCamps(Principal principal, Model model){
         User user = userRepo.findByUsername(principal.getName());
-        Iterable<Camp> campList = campRepo.findAllByAdminIdAndEnabled(user.getId(), true);
+        Iterable<Camp> campList = campRepo.findAllByAdminId(user.getId());
         model.addAttribute("allCamps", campList);
         return "allCamps";
     }

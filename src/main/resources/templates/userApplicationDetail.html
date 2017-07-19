@@ -13,9 +13,9 @@
 		<p th:text="${usercamp.user.fullName}"></p>
 		<p th:text="${usercamp.user.email}"></p>
 		<p th:text="${usercamp.user.aboutMe}"></p>
-		<form th:action="@{/accept/{id}(id=${usercamp.user.id})}" th:method="post">
+		<form th:action="@{'/accept/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}}" th:method="post">
 			<select class="selectpicker" data-style="form-control" data-width="25%" title = "status" name = "status">
-                <option value="pending" >pending</option>
+                <option disabled="disabled" selected="selected" value="pending" >pending</option>
                 <option value="accept" >accept</option>
                	<option value="reject" >reject</option>
             </select>

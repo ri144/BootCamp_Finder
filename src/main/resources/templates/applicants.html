@@ -19,7 +19,7 @@
 			</tr>
 			<tr th:each="usercamp : ${applicants}">
 				
-					<td> <a th:href="@{/applicant/{id}(id=${usercamp.user.id})}" th:text="${usercamp.user.fullName}"></a></td>
+					<td> <a th:href="@{'/applicant/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}" th:text="${usercamp.user.fullName}"></a></td>
 					
 					<td th:text="${usercamp.status}"></td>
 			</tr>

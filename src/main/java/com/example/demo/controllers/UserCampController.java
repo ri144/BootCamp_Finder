@@ -52,11 +52,9 @@ public class UserCampController {
 		return "allCamps";
 	}
 	
-	@RequestMapping("/applicant/{id}")
-	public String userApplicationDetail(@PathVariable("id") Long id,  Principal principal, Model model){
-		
-		
-		UserCamp usercamp = userCampRepository.findByUser_Id(id);
+	@RequestMapping("/applicant/{id}/{id2}")
+	public String userApplicationDetail(@PathVariable("id") Long id, @PathVariable("id2") Long id2, Principal principal, Model model){
+		UserCamp usercamp = userCampRepository.findByUser_IdAndCamp_CampId(id, id2);
 		model.addAttribute("usercamp", usercamp);
 		return "userApplicationDetail";
 		
@@ -73,15 +71,15 @@ public class UserCampController {
 			model.addAttribute("applicants", applicants);
 			return "applicants";
 		}else{
-			return "index";
+			return "redirect:/camp/" + String.valueOf(campId);
 		}
 	}
 	
-	@RequestMapping(path="/accept/{id}", method=RequestMethod.POST)
-	public String acceptUser(@PathVariable("id") Long id, String status, Principal principal, Model model){
+	@RequestMapping(path="/accept/{id}/{id2}", method=RequestMethod.POST)
+	public String acceptUser(@PathVariable("id") Long id, @PathVariable("id2") Long id2, String status, Principal principal, Model model){
 		
 		
-		UserCamp usercamp = userCampRepository.findByUser_Id(id);
+		UserCamp usercamp = userCampRepository.findByUser_IdAndCamp_CampId(id, id2);
 		usercamp.setStatus(status);
 		Camp camp = usercamp.getCamp();
 		List<UserCamp> applicants = userCampRepository.findByCamp_CampId(camp.getCampId());

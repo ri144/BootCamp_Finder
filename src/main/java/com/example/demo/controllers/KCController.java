@@ -79,7 +79,7 @@ public class KCController {
         camp.setStartDate(start);
         camp.setEndDate(end);
         camp.setCity(city);
-        camp.setEnabled(false);
+        camp.setEnabled(camp.isEnabled());
         campRepository.save(camp);
         return "redirect:/";
     }
@@ -108,7 +108,7 @@ public class KCController {
         Camp camp = campRepository.findOne(id);
         User user = userService.findbyUsername(principal.getName());
         if(user.getId() != camp.getAdminId()){
-            return "redirect:/";
+            return "redirect:/camp/" + String.valueOf(id);
         }
         model.addAttribute("camp", camp);
         Iterable<City> cityList = cityRepository.findAll();
@@ -131,7 +131,7 @@ public class KCController {
         camp.setStartDate(start);
         camp.setEndDate(end);
         camp.setCity(city);
-        camp.setEnabled(false);
+        camp.setEnabled(true);
         campRepository.save(camp);
         return "redirect:/";
     }
