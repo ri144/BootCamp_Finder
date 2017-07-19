@@ -19,6 +19,7 @@
             <th>Camp Description</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th th:if="${seeEnabled}">Enabled</th>
             <th:block th:each="camp: ${allCamps}">
                 <div class="content table-responsive table-full-width ">
                     <tr>
@@ -26,6 +27,7 @@
                         <td th:text="${camp.description}"></td>
                         <td th:text="${#dates.format(camp.startDate, 'MM/dd/yyyy')}"></td>
                         <td th:text="${#dates.format(camp.endDate, 'MM/dd/yyyy')}"></td>
+                        <td th:if="${seeEnabled}"><i class="material-icons" th:text="${camp.enabled} ?'done':'clear'"></i></td>
                     </tr>
                 </div>
             </th:block>

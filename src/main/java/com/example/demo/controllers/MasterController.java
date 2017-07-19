@@ -37,11 +37,12 @@ public class MasterController {
     TestimonialRepository testimonialRepository;
 
     @RequestMapping("/camp/{id}")
-    public String setupCamp(Model model, @PathVariable("id") Long id){
+    public String setupCamp(Model model, @PathVariable("id") Long id, Principal principal){
         Camp c = campRepo.findByCampId(id);
         List<Testimonial> testimonials = testimonialRepository.findByCamp_CampId(c.getCampId());
         model.addAttribute("camp", c);
         model.addAttribute("testimonials", testimonials);
+        model.addAttribute("user", userRepo.findByUsername(principal.getName()));
         return "camp_page";
     }
    
@@ -83,6 +84,7 @@ public class MasterController {
     public String displayCampsByCity(Model model, @PathVariable("id") Long id){
         List<Camp> campList = campRepo.findByCity_Id(id);
         model.addAttribute("allCamps", campList);
+        model.addAttribute("seeEnabled", true);
         return "allCamps";
     }
 }
