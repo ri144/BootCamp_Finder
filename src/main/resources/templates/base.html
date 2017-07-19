@@ -41,8 +41,10 @@
                 <li><a href="/login" sec:authorize="isAnonymous()">Login</a></li>
                 <li><a href="/logout" sec:authorize="isAuthenticated()">Logout</a></li>
                 <li><a href="/registeruser" sec:authorize="isAnonymous()">Register</a></li>
+                <li><a href="/searchCamps" sec:authorize="isAuthenticated()">Search Camps</a></li>
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">View All Camps</a></li>
-                <li><a href="/" sec:authorize="hasAuthority('ADMIN')">Home</a></li>
+                <li><a href="/" sec:authorize="isAuthenticated()">Home</a></li>
+                <li><a href="/createcamp" sec:authorize="hasAuthority('ADMIN')">Create a Camp</a></li>
                 <li><a href="/admincamps" sec:authorize="hasAuthority('ADMIN')">My Camps</a></li>
                 <li><a href="/myapplication" sec:authorize="hasAuthority('USER')">My Applications</a></li>
                 <li><a href="/enable" sec:authorize="hasAuthority('SUPER')">View and Enable/Disable Camps</a></li>

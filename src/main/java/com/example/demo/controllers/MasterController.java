@@ -71,4 +71,18 @@ public class MasterController {
         model.addAttribute("allCamps", campList);
         return "allCamps";
     }
+
+    @RequestMapping("/searchCamps")
+    public String searchCamps(Model model){
+        Iterable<City> citylist = cityRepo.findAll();
+        model.addAttribute("cities", citylist);
+        return "search";
+    }
+
+    @RequestMapping("/findCampsByCity/{id}")
+    public String displayCampsByCity(Model model, @PathVariable("id") Long id){
+        List<Camp> campList = campRepo.findByCity_Id(id);
+        model.addAttribute("allCamps", campList);
+        return "allCamps";
+    }
 }
