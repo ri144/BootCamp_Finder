@@ -17,7 +17,7 @@
 <body class="profile-page">
 <th:block th:replace="base :: nav"></th:block>
 <div class="wrapper">
-	<div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+    <div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
 	<div class="main main-raised">
 		<div >
 			<p th:text="${usercamp.user.fullName}"></p>
@@ -25,16 +25,16 @@
 			<p th:text="${usercamp.user.aboutMe}"></p>
 			<form th:action="@{'/accept/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}}" th:method="post">
 				<select class="selectpicker" data-style="form-control" data-width="25%" title = "status" name = "status">
-					<option disabled="disabled" selected="selected" value="pending" >pending</option>
-					<option value="accept">accept</option>
-					<option value="reject">reject</option>
+					<option disabled="disabled" th:selected="${usercamp.status} == 'pending'" value="pending" >pending</option>
+					<option value="accept" th:selected="${usercamp.status} == 'accept'">accept</option>
+					<option value="reject" th:selected="${usercamp.status} == 'reject'">reject</option>
 				</select>
 				<input type="submit" value="Submit"/>
 			</form>
         </div>
     </div>
 </div>
-
+<div th:replace="base :: footlinks"></div>
 </body>
 
 </html>

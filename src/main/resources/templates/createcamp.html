@@ -50,7 +50,7 @@
        <select class="selectpicker" data-style="form-control" data-width="25%" title = "Choose City" th:name = "cityId">
            <label for="city">Select City</label>
            <th:block th:each="city: ${cityList}">
-               <option th:value="${city.id}" th:text = "${city.city}" th:if="${camp.city.id} == ${city.id}" selected="selected" id = "city">
+               <option th:value="${city.id}" th:text = "${city.city}" th:selected="${camp.city.id} == ${city.id}" id = "city">
                    cityname</option>
            </th:block>
        </select>
