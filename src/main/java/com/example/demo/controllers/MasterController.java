@@ -70,6 +70,7 @@ public class MasterController {
         User user = userRepo.findByUsername(principal.getName());
         Iterable<Camp> campList = campRepo.findAllByAdminId(user.getId());
         model.addAttribute("allCamps", campList);
+        model.addAttribute("seeEnabled", true);
         return "allCamps";
     }
 
@@ -82,9 +83,8 @@ public class MasterController {
 
     @RequestMapping("/findCampsByCity/{id}")
     public String displayCampsByCity(Model model, @PathVariable("id") Long id){
-        List<Camp> campList = campRepo.findByCity_Id(id);
+        Iterable<Camp> campList = campRepo.findAllByCity_IdAnAndEnabled(id, true);
         model.addAttribute("allCamps", campList);
-        model.addAttribute("seeEnabled", true);
         return "allCamps";
     }
 }
