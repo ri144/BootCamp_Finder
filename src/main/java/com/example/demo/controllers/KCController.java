@@ -79,7 +79,7 @@ public class KCController {
         camp.setStartDate(start);
         camp.setEndDate(end);
         camp.setCity(city);
-        camp.setEnabled(false);
+        //camp.setEnabled(false);
         campRepository.save(camp);
         return "redirect:/";
     }
@@ -119,9 +119,10 @@ public class KCController {
     }
     @PostMapping("/editcamp/{id}")//change later
     //edit this specific camp-click submit button
-    public String editCamp(@RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
+    public String editCamp(@PathVariable("id") long campId, @RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
                            @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model){
         model.addAttribute("camp", camp);
+        Camp fromdb = campRepository.findByCampId(campId);//retrieve current camp values from database
         //convert date from Strings to sql dates
         Date start = stringToDate(sDateString);
         Date end = stringToDate(eDateString);

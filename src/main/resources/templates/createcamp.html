@@ -23,7 +23,7 @@
     <div class="main main-raised">
 
 <div th:replace="base :: navbar"></div>
-<form th:object="${camp}" th:action = "${edit}? @{/createcamp}: @{'/editcamp/' + ${id}}" method = "POST">
+<form th:object="${camp}" th:action = "@{/createcamp}" method = "POST">
    <div class="form-group">
        <label for="name">Bootcamp Name</label>
        <input type="text" name="name" class = "form-control" id = "name" th:value = "${camp.campName}" th:field="*{campName}"/>
