@@ -50,8 +50,10 @@ public class KCController {
 
     @GetMapping("/createcamp")//change later
     //Show page that admins can register a camp
-    public String registerCamp(Model model){
+    public String registerCamp(Model model, Principal principal){
         Camp temp = new Camp();
+        temp.setAdminId((userService.findbyUsername(principal.getName())).getId());
+        System.out.println(temp.getAdminId());
         temp.setStartDate(new Date());
         temp.setEndDate(new Date());
         temp.setCity(cityRepository.findOne((long)1));
@@ -65,8 +67,9 @@ public class KCController {
     @PostMapping("/createcamp")
     //registercamp clicks submit button
     public String registerCampSave(@RequestParam("cityId") long cityId, @RequestParam("sDate") String sDateString,
-                                   @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model, Principal principal){
+                                   @RequestParam("eDate") String eDateString, @ModelAttribute Camp camp, Model model){
         model.addAttribute("camp", camp);
+
         //convert date from Strings to sql dates
         Date start = stringToDate(sDateString);
         Date end = stringToDate(eDateString);
@@ -77,7 +80,6 @@ public class KCController {
         camp.setEndDate(end);
         camp.setCity(city);
         camp.setEnabled(false);
-        camp.setAdminId(userService.findbyUsername(principal.getName()).getId());
         campRepository.save(camp);
         return "redirect:/";
     }
