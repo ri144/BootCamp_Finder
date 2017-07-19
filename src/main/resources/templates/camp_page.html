@@ -1,63 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="www.thymeleaf.org "
+	xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>BootCamp Finder</title>
-    <th:block th:replace="base :: head"></th:block>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>BootCamp Finder</title>
+<th:block th:replace="base :: head"></th:block>
 </head>
 <body>
-<th:block th:replace="base :: nav"></th:block>
+	<th:block th:replace="base :: nav"></th:block>
 
-<div class="container">
-    <br /><br />
-    <h1 th:text="${camp.campName}"></h1>
-    <br/>
-    <h2 th:text="'Location: ' + ${camp.city.city}"></h2>
-    <h3 th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}"/>
-    <h4 th:text="'Topics Covered: ' + ${camp.topic}"/>
-    <h5 th:text="'Details: ' + ${camp.description}"/>
-    <br/>
-    <div th:if="${testimonials!=null}">
-        <ul>
-            <th:block th:each="t : ${testimonials}">
-                <div>
-                    <p th:text="${t.user.fullName}"> </p>
-                    <p th:text="${t.comment}"></p>
-                    <p th:text="${#dates.format(t.date, 'MM-dd-yyyy')}"></p>
-                </div>
-            </th:block>
-        </ul>
-    </div>
-    <br/>
-    <a th:href="@{'/email/' + ${camp.campId}}">Send the Camp Admin an E-mail</a>
-    <br/>
-    <th:block sec:authorize="hasAuthority('USER')">
-        <a th:href="@{'/submitApp/' + ${camp.campId}}">Submit an Application to This Camp</a>
-    </th:block>
-    <br/>
-    <th:block sec:authorize="hasAuthority('USER')">
-        <a th:href="@{'/test/' + ${camp.campId}}">Write a Testimonial</a>
-    </th:block>
-    <th:block sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{'/editcamp/' + ${camp.campId}}">Edit Camp Data</a>
-    </th:block>
-    <br/>
-    <th:block sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{'/allApplicants/' + ${camp.campId}}">View Applicants</a>
-    </th:block>
-	<div th:if="${test!=null}">
-		<form th:action="@{/test/save}" th:method="post" th:object="${test}">
-			<textarea th:field="*{comment}"></textarea>
-			<input type="hidden" name="campId" th:value="${camp.campId}" />
-			<input type="submit" value="Submit"/>
-		</form>
+	<div class="wrapper">
+		<div class="header header-filter"
+			style="background-image: url('../assets/img/examples/city.jpg');"></div>
+		<div class="main main-raised">
+			<div class="col-md-12">
+				<h1 th:text="${camp.campName}"></h1>
+			</div>
+			<br />
+			<div class="col-md-12">
+				<h2 th:text="'Location: ' + ${camp.city.city}"></h2>
+				<h3
+					th:text="'Camp Time Period: ' + ${#dates.format(camp.startDate, 'MM-dd-yyyy')} + ' - ' + ${#dates.format(camp.endDate, 'MM-dd-yyyy')}" />
+				<h4 th:text="'Topics Covered: ' + ${camp.topic}" />
+				<h5 th:text="'Details: ' + ${camp.description}" />
+			</div>
+			<br />
+			<div class="col-md-12">
+				<h5>
+					<strong>Comments</strong>
+				</h5>
+			</div>
+			<div th:if="${testimonials!=null}">
+				<th:block th:each="t : ${testimonials}">
+					<div>
+						<table class="table">
+							<tr>
+								<th>User</th>
+								<th>Comments</th>
+								<th>Date</th>
+							</tr>
+							<tr>
+								<td th:text="${t.user.fullName}"></td>
+								<td th:text="${t.comment}"></td>
+								<td th:text="${#dates.format(t.date, 'MM-dd-yyyy')}"></td>
+							</tr>
+						</table>
+					</div>
+				</th:block>
+			</div>
+			<br /> <a th:href="@{'/email/' + ${camp.campId}}">Send the Camp
+				Admin an E-mail</a> <br />
+			<th:block sec:authorize="hasAuthority('USER')">
+				<a th:href="@{'/submitApp/' + ${camp.campId}}">Submit an
+					Application to This Camp</a>
+			</th:block>
+			<br />
+			<th:block sec:authorize="hasAuthority('USER')">
+				<a th:href="@{'/test/' + ${camp.campId}}">Write a Testimonial</a>
+			</th:block>
+			<th:block sec:authorize="hasAuthority('ADMIN')">
+				<a th:href="@{'/editcamp/' + ${camp.campId}}">Edit Camp Data</a>
+			</th:block>
+			<br />
+			<th:block sec:authorize="hasAuthority('ADMIN')">
+				<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
+					Applicants</a>
+			</th:block>
+			<div th:if="${test!=null}">
+				<form th:action="@{/test/save}" th:method="post" th:object="${test}">
+					<textarea th:field="*{comment}"></textarea>
+					<input type="hidden" name="campId" th:value="${camp.campId}" /> <input
+						type="submit" value="Submit" />
+				</form>
+			</div>
+		</div>
 	</div>
-
-	
-</div>
-<th:block th:replace="base :: footlinks"></th:block>
+	<th:block th:replace="base :: footlinks"></th:block>
 </body>
 </html>
