@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Application status</title>
+	<th:block th:replace="base :: head"></th:block>
 
-    
+	<title>Applicant Details</title>
+
+<style>
+	.main {
+		padding-top: 20px;
+		padding-right: 30px;
+		padding-bottom: 50px;
+		padding-left: 50px;
+	}
+</style>
 </head>
-	<body>
-	<div >
-		<p th:text="${usercamp.user.fullName}"></p>
-		<p th:text="${usercamp.user.email}"></p>
-		<p th:text="${usercamp.user.aboutMe}"></p>
-		<form th:action="@{'/accept/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}}" th:method="post">
-			<select class="selectpicker" data-style="form-control" data-width="25%" title = "status" name = "status">
-                <option disabled="disabled" selected="selected" value="pending" >pending</option>
-                <option value="accept" >accept</option>
-               	<option value="reject" >reject</option>
-            </select>
-            <input type="submit" value="Submit"/>
-		</form>
-		
-	</div>
+<body class="profile-page">
+<th:block th:replace="base :: nav"></th:block>
+<div class="wrapper">
+	<div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+	<div class="main main-raised">
+		<div >
+			<p th:text="${usercamp.user.fullName}"></p>
+			<p th:text="${usercamp.user.email}"></p>
+			<p th:text="${usercamp.user.aboutMe}"></p>
+			<form th:action="@{'/accept/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}}" th:method="post">
+				<select class="selectpicker" data-style="form-control" data-width="25%" title = "status" name = "status">
+					<option disabled="disabled" selected="selected" value="pending" >pending</option>
+					<option value="accept">accept</option>
+					<option value="reject">reject</option>
+				</select>
+				<input type="submit" value="Submit"/>
+			</form>
+        </div>
+    </div>
+</div>
+
 </body>
+
 </html>
