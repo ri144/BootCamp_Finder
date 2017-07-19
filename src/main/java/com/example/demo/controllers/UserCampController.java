@@ -103,7 +103,7 @@ public class UserCampController {
             userCamp1.setUser(u);
 
             userCampRepository.save(userCamp1);
-            return "redirect:/camp/" + String.valueOf(id);
+            return "redirect:/myapplication";
         }
 
 
