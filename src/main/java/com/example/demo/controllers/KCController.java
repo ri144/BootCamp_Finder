@@ -53,7 +53,6 @@ public class KCController {
     public String registerCamp(Model model, Principal principal){
         Camp temp = new Camp();
         temp.setAdminId((userService.findbyUsername(principal.getName())).getId());
-        System.out.println(temp.getAdminId());
         temp.setStartDate(new Date());
         temp.setEndDate(new Date());
         temp.setCity(cityRepository.findOne((long)1));
@@ -132,7 +131,6 @@ public class KCController {
         camp.setStartDate(start);
         camp.setEndDate(end);
         camp.setCity(city);
-        camp.setEnabled(camp.isEnabled());
         campRepository.save(camp);
         return "redirect:/";
     }
