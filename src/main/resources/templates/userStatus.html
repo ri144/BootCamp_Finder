@@ -21,8 +21,8 @@
 				<th>Status</th>
 			</tr>
 			<tr th:each="ucamp : ${usercamp}">
-				
-					<td th:text="${ucamp.camp.campName}"></td>
+
+				<td ><a th:href="@{'/camp/' + ${ucamp.camp.campId}}" th:text="${ucamp.camp.campName}"></a></td>
 					<td th:text="${#dates.format(ucamp.camp.startDate, 'MM-dd-yyyy')}"></td>
 					<td th:text="${#dates.format(ucamp.camp.endDate, 'MM-dd-yyyy')}"></td>
 					<td th:text="${ucamp.status}"></td>
