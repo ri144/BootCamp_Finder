@@ -83,7 +83,7 @@ public class MasterController {
 
     @RequestMapping("/findCampsByCity/{id}")
     public String displayCampsByCity(Model model, @PathVariable("id") Long id){
-        Iterable<Camp> campList = campRepo.findAllByCity_IdAnAndEnabled(id, true);
+        Iterable<Camp> campList = campRepo.findAllByCity_IdAndEnabled(id, true);
         model.addAttribute("allCamps", campList);
         return "allCamps";
     }

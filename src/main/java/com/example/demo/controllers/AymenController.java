@@ -35,7 +35,7 @@ public class AymenController {
     public EmailService emailService;
     
     //This method sends an email to the Camp Admin
-    public void sendEmailWithoutTemplating(String currentUserName, String currentUserEmail, String adminName, String adminEmail, String body, String subject) throws UnsupportedEncodingException {
+    private void sendEmailWithoutTemplating(String currentUserName, String currentUserEmail, String adminName, String adminEmail, String body, String subject) throws UnsupportedEncodingException {
         final Email email = DefaultEmail.builder()
                 .from(new InternetAddress(currentUserEmail, currentUserName))
                 .to(Lists.newArrayList(new InternetAddress(adminEmail, adminName)))

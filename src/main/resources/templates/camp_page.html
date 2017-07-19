@@ -72,7 +72,11 @@
 				<a th:href="@{'/editcamp/' + ${camp.campId}}">Edit Camp Data</a>
 			</th:block>
 			<br />
-			<th:block sec:authorize="hasAuthority('ADMIN')">
+			<th:block sec:authorize="hasAuthority('ADMIN') ">
+				<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
+					Applicants</a>
+			</th:block>
+			<th:block sec:authorize="hasAuthority('SUPER') ">
 				<a th:href="@{'/allApplicants/' + ${camp.campId}}">View
 					Applicants</a>
 			</th:block>

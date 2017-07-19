@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import com.example.demo.repositories.RoleRepository;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,9 @@ public class UserCampController {
 	
 	@Autowired
 	CampRepository campRepo;
-	
+
+	@Autowired
+    RoleRepository roleRepository;
 	@RequestMapping("/myapplication")
 	public String listUserStatus(Principal principal, Model model){
 		User user = userService.findbyUsername(principal.getName()) ;
@@ -71,7 +74,12 @@ public class UserCampController {
 			List<UserCamp> applicants = userCampRepository.findByCamp_CampId(campId);
 			model.addAttribute("applicants", applicants);
 			return "applicants";
-		}else{
+		}else if(user.getRoles().contains(roleRepository.findByRole("SUPER"))){
+            List<UserCamp> applicants = userCampRepository.findByCamp_CampId(campId);
+            model.addAttribute("applicants", applicants);
+            return "applicants";
+        }
+		else{
 			return "redirect:/camp/" + String.valueOf(campId);
 		}
 	}
