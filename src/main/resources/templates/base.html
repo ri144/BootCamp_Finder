@@ -44,7 +44,7 @@
                 <li><a href="/campLists" sec:authorize="isAuthenticated()">View All Camps</a></li>
                 <li><a href="/createcamp" sec:authorize="hasAuthority('ADMIN')">Create New Camp</a></li>
                 <li><a href="/admincamps" sec:authorize="hasAuthority('ADMIN')">My Camps</a></li>
-                <li><a href="/myapplication" sec:authorize="hasAuthority('USER')">My Application</a></li>
+                <li><a href="/myapplication" sec:authorize="hasAuthority('USER')">My Applications</a></li>
                 <li><a href="/enable" sec:authorize="hasAuthority('SUPER')">View and Enable/Disable Camps</a></li>
             </ul>
         </div>
