@@ -8,7 +8,8 @@ import com.example.demo.models.UserCamp;
 
 public interface UserCampRepository extends CrudRepository<UserCamp, Long>{
 
-	UserCamp findByUser_Id(long id);
+	Iterable<UserCamp>
+	findByUser_Id(long id);
 
 	List<UserCamp> findByCamp_CampId(Long campId);
 

@@ -5,10 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Application status</title>
-
+	<th:block th:replace="base :: head"></th:block>
     
 </head>
-	<body>
+<body class="profile-page">
+<th:block th:replace="base :: nav"></th:block>
+<div class="wrapper">
+	<div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+	<div class="main main-raised">
 		
 			
 		<table >
@@ -19,11 +23,13 @@
 			</tr>
 			<tr th:each="usercamp : ${applicants}">
 				
-					<td> <a th:href="@{'/applicant/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}" th:text="${usercamp.user.fullName}"></a></td>
+					<td> <a th:href="@{'/applicant/' + ${usercamp.user.id} + '/' + ${usercamp.camp.campId}}" th:text="${usercamp.user.fullName}"></a></td>
 					
 					<td th:text="${usercamp.status}"></td>
 			</tr>
 			
-		</table>	
+		</table>
+	</div>
+</div>
 </body>
 </html>

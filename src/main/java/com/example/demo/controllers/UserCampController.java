@@ -17,6 +17,7 @@ import com.example.demo.models.UserCamp;
 import com.example.demo.repositories.CampRepository;
 import com.example.demo.repositories.UserCampRepository;
 import com.example.demo.repositories.UserRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserCampController {
@@ -33,10 +34,10 @@ public class UserCampController {
 	@Autowired
 	CampRepository campRepo;
 	
-	@RequestMapping("/myApp")
+	@RequestMapping("/myapplication")
 	public String listUserStatus(Principal principal, Model model){
-		User user = userService.findByEmail(principal.getName()) ;
-		UserCamp usercamp = userCampRepository.findByUser_Id(user.getId());
+		User user = userService.findbyUsername(principal.getName()) ;
+		Iterable<UserCamp> usercamp = userCampRepository.findByUser_Id(user.getId());
 		model.addAttribute("usercamp", usercamp);
 		return "userStatus";
 		
@@ -45,7 +46,7 @@ public class UserCampController {
 	@RequestMapping("/viewmycamps")
 	public String allAdminCamps(Principal principal, Model model){
 		
-		User user = userRepo.findByEmail(principal.getName());
+		User user = userRepo.findByUsername(principal.getName());
 		List<Camp> campList = (List<Camp>) campRepo.findAllByAdminIdAndEnabled(user.getId(), true);
 		
 		model.addAttribute("allCamps", campList);
@@ -76,17 +77,27 @@ public class UserCampController {
 	}
 	
 	@RequestMapping(path="/accept/{id}/{id2}", method=RequestMethod.POST)
-	public String acceptUser(@PathVariable("id") Long id, @PathVariable("id2") Long id2, String status, Principal principal, Model model){
-		
-		
+	public String acceptUser(@PathVariable("id") Long id, @PathVariable("id2") Long id2, @RequestParam("status") String status, Principal principal, Model model){
 		UserCamp usercamp = userCampRepository.findByUser_IdAndCamp_CampId(id, id2);
 		usercamp.setStatus(status);
 		Camp camp = usercamp.getCamp();
 		List<UserCamp> applicants = userCampRepository.findByCamp_CampId(camp.getCampId());
-		
+		userCampRepository.save(usercamp);
 		model.addAttribute("applicants", applicants);
 		return "applicants";
 		
+	}
+
+	@RequestMapping("submitApp/{id}")
+	public String submit(Model model, Principal principal, @PathVariable("id") Long id){ //id is campid
+		User u = userService.findbyUsername(principal.getName());
+		UserCamp userCamp = new UserCamp();
+		Camp c = campRepo.findByCampId(id);
+		userCamp.setCamp(c);
+		userCamp.setStatus("pending");
+		userCamp.setUser(u);
+		userCampRepository.save(userCamp);
+		return "redirect:/camp/" + String.valueOf(id);
 	}
 	
 }

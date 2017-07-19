@@ -57,6 +57,7 @@ public class KCController {
         temp.setStartDate(new Date());
         temp.setEndDate(new Date());
         temp.setCity(cityRepository.findOne((long)1));
+        temp.setEnabled(false);
         model.addAttribute("camp", temp);
         Iterable<City> cityList = cityRepository.findAll();
         model.addAttribute("cityList", cityList);
@@ -79,7 +80,7 @@ public class KCController {
         camp.setStartDate(start);
         camp.setEndDate(end);
         camp.setCity(city);
-        camp.setEnabled(camp.isEnabled());
+        camp.setEnabled(false);
         campRepository.save(camp);
         return "redirect:/";
     }
@@ -131,7 +132,7 @@ public class KCController {
         camp.setStartDate(start);
         camp.setEndDate(end);
         camp.setCity(city);
-        camp.setEnabled(true);
+        camp.setEnabled(camp.isEnabled());
         campRepository.save(camp);
         return "redirect:/";
     }

@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My application status</title>
-
+	<th:block th:replace="base :: head"></th:block>
     
 </head>
-	<body>
-		
-			
+<body class="profile-page">
+<th:block th:replace="base :: nav"></th:block>
+<div class="wrapper">
+	<div class="header header-filter" style="background-image: url('../assets/img/examples/city.jpg');"></div>
+	<div class="main main-raised">
 		<table >
 			<tr>
 				<th>Camp name</th>
@@ -21,11 +23,13 @@
 			<tr th:each="ucamp : ${usercamp}">
 				
 					<td th:text="${ucamp.camp.campName}"></td>
-					<td th:text="${ucamp.camp.startDate}"></td>
-					<td th:text="${ucamp.camp.endDate}"></td>
+					<td th:text="${#dates.format(ucamp.camp.startDate, 'MM-dd-yyyy')}"></td>
+					<td th:text="${#dates.format(ucamp.camp.endDate, 'MM-dd-yyyy')}"></td>
 					<td th:text="${ucamp.status}"></td>
 			</tr>
 			
-		</table>	
+		</table>
+	</div>
+</div>
 </body>
 </html>
