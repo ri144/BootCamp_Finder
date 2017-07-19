@@ -15,4 +15,6 @@ public interface UserCampRepository extends CrudRepository<UserCamp, Long>{
 
 	UserCamp findByUser_IdAndCamp_CampId(Long userid, long campid);
 
+	boolean existsByUser_IdAndCamp_CampId(long id, Long id2);
+
 }
